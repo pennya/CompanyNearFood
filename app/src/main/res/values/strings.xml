@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CompanyNearFood</string>
+    <string name="title_activity_intro">IntroActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+</resources>
