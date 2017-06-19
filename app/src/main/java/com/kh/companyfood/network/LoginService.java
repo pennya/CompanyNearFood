@@ -1,5 +1,6 @@
 package com.kh.companyfood.network;
 
+import com.kh.companyfood.model.Status;
 import com.kh.companyfood.model.User;
 
 import retrofit2.Call;
@@ -14,14 +15,11 @@ import retrofit2.http.POST;
  */
 
 public interface LoginService {
-
-    @POST("users/create")
-    Call<User> createUser(@Body User user);
-
     @FormUrlEncoded
-    @POST("posts/1")
-    Call<User> loginUser(@Field("login_id") String id, @Field("login_pw") String pw);
+    @POST("/api/userLogin/")
+    Call<Status> loginUser(@Field("id") String id, @Field("password") String pw);
 
-    @GET("posts/1")
-    Call<String> getTest();
+
+    @POST("/api/users/")
+    Call<User> signUpUser(@Body User user);
 }
