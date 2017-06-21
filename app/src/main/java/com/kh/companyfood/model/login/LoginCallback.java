@@ -5,5 +5,5 @@ package com.kh.companyfood.model.login;
  */
 
 public interface LoginCallback {
-    void getNetworkResponse(String text);
+    void getNetworkResponse(String text, int status);
 }

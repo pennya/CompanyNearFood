@@ -2,4 +2,8 @@
     <string name="app_name">CompanyNearFood</string>
     <string name="title_activity_intro">IntroActivity</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="content_activity_intro">Intro</string>
+    <string name="id">ID</string>
+    <string name="pw">PW</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
 </resources>
