@@ -3,7 +3,6 @@ package com.kh.companyfood.ui.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,13 +16,14 @@ import com.kh.companyfood.define.Define;
 import com.kh.companyfood.presenter.login.LoginPresenter;
 import com.kh.companyfood.presenter.login.LoginPresenterImpl;
 import com.kh.companyfood.ui.main.MainActivity;
+import com.kh.companyfood.ui.signUp.SignUpActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginPresenter.View{
 
     LoginPresenterImpl loginPresenter;
     private Button button;
-    private EditText editText_id;
-    private EditText editText_pw;
+    private EditText editTextId;
+    private EditText editTextPw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +42,15 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
             }
         });
 
-        editText_id = (EditText)findViewById(R.id.editText_id);
-        editText_pw = (EditText)findViewById(R.id.editText_pw);
+        editTextId = (EditText)findViewById(R.id.editText_id);
+        editTextPw = (EditText)findViewById(R.id.editText_pw);
 
         button = (Button) findViewById(R.id.button_login);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("test1", "LoginActivity onClick");
-                loginPresenter.actionLogin(editText_id.getText().toString(), editText_pw.getText().toString());
+                loginPresenter.actionLogin(editTextId.getText().toString(), editTextPw.getText().toString());
             }
         });
 

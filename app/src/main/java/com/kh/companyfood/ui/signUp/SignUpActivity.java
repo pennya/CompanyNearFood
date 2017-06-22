@@ -1,12 +1,8 @@
-package com.kh.companyfood.ui.login;
+package com.kh.companyfood.ui.signUp;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,15 +12,15 @@ import com.kh.companyfood.R;
 import com.kh.companyfood.define.Define;
 import com.kh.companyfood.presenter.login.LoginPresenter;
 import com.kh.companyfood.presenter.login.LoginPresenterImpl;
-import com.kh.companyfood.ui.main.MainActivity;
+import com.kh.companyfood.ui.login.LoginActivity;
 
 public class SignUpActivity extends AppCompatActivity implements LoginPresenter.View{
 
     private LoginPresenterImpl loginPresenter;
-    private Button button_signup;
-    private EditText editText_id;
-    private EditText editText_pw;
-    private EditText editText_email;
+    private Button buttonSignup;
+    private EditText editTextId;
+    private EditText editTextPw;
+    private EditText editTextEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +34,19 @@ public class SignUpActivity extends AppCompatActivity implements LoginPresenter.
     Button.OnClickListener mButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            loginPresenter.actionJoinUser(editText_id.getText().toString(),
-                    editText_pw.getText().toString(),
-                    editText_email.getText().toString());
+            loginPresenter.actionJoinUser(editTextId.getText().toString(),
+                    editTextPw.getText().toString(),
+                    editTextEmail.getText().toString());
         }
     };
 
     private void init() {
-        button_signup = (Button)findViewById(R.id.button_signup);
-        editText_id = (EditText)findViewById(R.id.editText_signup_id);
-        editText_pw = (EditText)findViewById(R.id.editText_signup_pw);
-        editText_email = (EditText)findViewById(R.id.editText_signup_email);
+        buttonSignup = (Button)findViewById(R.id.button_signup);
+        editTextId = (EditText)findViewById(R.id.editText_signup_id);
+        editTextPw = (EditText)findViewById(R.id.editText_signup_pw);
+        editTextEmail = (EditText)findViewById(R.id.editText_signup_email);
 
-        button_signup.setOnClickListener(mButtonClickListener);
+        buttonSignup.setOnClickListener(mButtonClickListener);
     }
 
     @Override
