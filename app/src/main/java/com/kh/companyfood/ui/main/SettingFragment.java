@@ -12,10 +12,11 @@ import android.widget.Toast;
 
 import com.kh.companyfood.R;
 import com.kh.companyfood.presenter.main.SettingContract;
+import com.kh.companyfood.presenter.main.SettingPresenterImpl;
 
 public class SettingFragment extends Fragment implements SettingContract.View{
 
-    private SettingContract.Presenter mPresenter;
+    private SettingPresenterImpl mPresenter;
 
     private TextView mTextView;
 
@@ -42,12 +43,9 @@ public class SettingFragment extends Fragment implements SettingContract.View{
             }
         });
 
-        return root;
-    }
+        mPresenter = new SettingPresenterImpl(this);
 
-    @Override
-    public void setPresenter(SettingContract.Presenter presenter) {
-        mPresenter = presenter;
+        return root;
     }
 
     @Override

@@ -12,12 +12,13 @@ import android.widget.Toast;
 
 import com.kh.companyfood.R;
 import com.kh.companyfood.presenter.main.RecommandContract;
+import com.kh.companyfood.presenter.main.RecommandPresenterImpl;
 
 public class RecommandTabFragment extends Fragment implements RecommandContract.View {
 
     private static final String TAG = "KJH";
 
-    private RecommandContract.Presenter mPresenter;
+    private RecommandPresenterImpl mPresenter;
 
     private TextView mTextView;
 
@@ -43,12 +44,10 @@ public class RecommandTabFragment extends Fragment implements RecommandContract.
                 mPresenter.buttonClickAction();
             }
         });
-        return root;
-    }
 
-    @Override
-    public void setPresenter(RecommandContract.Presenter presenter) {
-        mPresenter = presenter;
+        mPresenter = new RecommandPresenterImpl(this);
+
+        return root;
     }
 
     @Override

@@ -16,12 +16,6 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
 
     private static final int PAGE_NUMBER = 3;
 
-    private RestaurantPresenterImpl mRestaurantPresenter;
-
-    private RecommandPresenterImpl mRecommandPresenter;
-
-    private SettingPresenterImpl mSettingPresenter;
-
     public TabPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
     }
@@ -31,21 +25,15 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
         switch ( position ) {
             case 0: {
                 RestaurantTabFragment restaurantTabFragment = RestaurantTabFragment.newInstance();
-                mRestaurantPresenter = new RestaurantPresenterImpl(restaurantTabFragment);
-
                 return restaurantTabFragment;
             }
 
             case 1: {
                 RecommandTabFragment recommandTabFragment = RecommandTabFragment.newInstance();
-                mRecommandPresenter = new RecommandPresenterImpl(recommandTabFragment);
-
                 return recommandTabFragment;
             }
             case 2: {
                 SettingFragment settingFragment = SettingFragment.newInstance();
-                mSettingPresenter = new SettingPresenterImpl(settingFragment);
-
                 return settingFragment;
             }
             default:

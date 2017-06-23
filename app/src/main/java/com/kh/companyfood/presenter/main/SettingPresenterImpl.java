@@ -10,6 +10,5 @@ public class SettingPresenterImpl implements SettingContract.Presenter {
 
     public SettingPresenterImpl(SettingContract.View SettingContractView) {
         mSettingContractView = SettingContractView;
-        mSettingContractView.setPresenter(this);
     }
 }

@@ -10,7 +10,6 @@ public class RecommandPresenterImpl implements RecommandContract.Presenter {
 
     public RecommandPresenterImpl(RecommandContract.View RecommandContractView) {
         mRecommandContractView = RecommandContractView;
-        mRecommandContractView.setPresenter(this);
     }
 
     @Override

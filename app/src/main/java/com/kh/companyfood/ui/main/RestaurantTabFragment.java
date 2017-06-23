@@ -4,6 +4,8 @@ package com.kh.companyfood.ui.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,9 @@ import android.widget.Toast;
 
 import com.kh.companyfood.R;
 import com.kh.companyfood.presenter.main.RestaurantContract;
+import com.kh.companyfood.presenter.main.RestaurantPresenterImpl;
+
+import java.util.ArrayList;
 
 /**
  * Created by KIM on 2017-06-21.
@@ -22,13 +27,15 @@ public class RestaurantTabFragment extends Fragment implements RestaurantContrac
 
     private static final String TAG = "KJH";
 
-    private RestaurantContract.Presenter mPresenter;
+    private RestaurantPresenterImpl mPresenter;
 
-    private TextView mTextView;
+    private RecyclerView mRecyclerView;
 
-    private Button mButton;
+    private RecyclerViewAdapter mAdapter;
 
-    public RestaurantTabFragment() {
+    private RecyclerView.LayoutManager mLayoutManager;
+
+   public RestaurantTabFragment() {
 
     }
 
@@ -41,21 +48,34 @@ public class RestaurantTabFragment extends Fragment implements RestaurantContrac
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.restaurant_frag, container, false);
 
-        mTextView = (TextView)root.findViewById(R.id.text_sample);
-        mButton = (Button)root.findViewById(R.id.btn_sample);
-        mButton.setOnClickListener(new View.OnClickListener() {
+        mRecyclerView = (RecyclerView)root.findViewById(R.id.recycler_view);
+
+        // 내용의 변경으로 인해 RecyclerView의 레이아웃 크기가 변경되지 않는다면
+        // 성능을 향상시키기 위해 이 설정을 사용하면된다.
+        mRecyclerView.setHasFixedSize(true);
+
+        // 레이아웃 매니저 사용
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        // 어댑터 설정
+        mAdapter = new RecyclerViewAdapter(getActivity());
+        mAdapter.setItemClick(new ItemClick() {
             @Override
-            public void onClick(View v) {
-                mPresenter.buttonClickAction();
+            public void onClick(View view, int position) {
+
+                // 아이템 클릭 이벤트
+                mPresenter.onRecyclerItemClick(position);
+
             }
         });
+        mRecyclerView.setAdapter(mAdapter);
+
+        // 데이터 요청
+        mPresenter = new RestaurantPresenterImpl(this, mAdapter);
+        mPresenter.loadItems();
 
         return root;
-    }
-
-    @Override
-    public void setPresenter(RestaurantContract.Presenter presenter) {
-        mPresenter = presenter;
     }
 
     @Override
