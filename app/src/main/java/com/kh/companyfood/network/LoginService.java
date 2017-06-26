@@ -1,13 +1,12 @@
 package com.kh.companyfood.network;
 
-import com.kh.companyfood.model.Status;
-import com.kh.companyfood.model.User;
+import com.kh.companyfood.vo.Status;
+import com.kh.companyfood.vo.User;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -16,8 +15,8 @@ import retrofit2.http.POST;
 
 public interface LoginService {
     @FormUrlEncoded
-    @POST("/api/userLogin/")
-    Call<Status> loginUser(@Field("id") String id, @Field("password") String pw);
+    @POST("/api/login/")
+    Call<User> loginUser(@Field("id") String id, @Field("password") String pw);
 
 
     @POST("/api/users/")

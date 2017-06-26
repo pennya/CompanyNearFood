@@ -3,15 +3,19 @@ package com.kh.companyfood.model.login;
 import android.util.Log;
 
 import com.kh.companyfood.define.Define;
-import com.kh.companyfood.model.Status;
-import com.kh.companyfood.model.User;
+import com.kh.companyfood.vo.APIError;
+import com.kh.companyfood.vo.Status;
+import com.kh.companyfood.vo.User;
 import com.kh.companyfood.network.LoginService;
 import com.kh.companyfood.network.NetworkManager;
 
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Converter;
 import retrofit2.Response;
 
 /**
@@ -29,66 +33,42 @@ public class LoginModel {
     public void requestLogin(String id, String pw){
         LoginService loginService = NetworkManager.getIntance().getRetrofit(LoginService.class);
 
-        Call<Status> LoginCall = loginService.loginUser(id, pw);
-        LoginCall.enqueue(new Callback<Status>() {
+        Call<User> LoginCall = loginService.loginUser(id, pw);
+        LoginCall.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<Status> call, Response<Status> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
                 Log.d(TAG, "requestLogin onResponse");
-
+                Log.d(TAG, "response.code() : "+response.code());
                 // 응답 성공
-                if(response.isSuccessful()) {
-                    int status = response.body().getStatus();
+                if(response.isSuccessful() && response.code() == 200) {
 
+                    User user = response.body();
                     // 로그인 성공
-                    if(status == Define.LOGIN_SUCCESS)
-                        loginCallback.getNetworkResponse("[Login Success]", Define.LOGIN_SUCCESS);
+                    /*if(status == Define.LOGIN_SUCCESS)
+                        loginCallback.getNetworkResponse(user, Define.LOGIN_SUCCESS);
 
                     // 로그인 실패
                     else {
-                        loginCallback.getNetworkResponse("[Login Failed]\nCheck your id or password", Define.LOGIN_FAILED);
-                    }
+                        loginCallback.getNetworkResponse(null, Define.LOGIN_FAILED);
+                    }*/
+
+                    loginCallback.getNetworkResponse(null, Define.LOGIN_FAILED);
                 } else {
                     // 응답 실패
                     int StatusCode = response.code();
+
+                    Converter<ResponseBody, APIError> responseBodyObjectConverter = NetworkManager.retrofit.responseBodyConverter(APIError.class, new Annotation[0]);
+                    APIError convert = null;
                     try {
-                        loginCallback.getNetworkResponse("[Login Fail]\n" + "StatusCode : " + StatusCode + "\n" + "ErrorMsg : " + response.errorBody().string(),
-                                Define.RESPONSE_FAILED);
+                        convert = responseBodyObjectConverter.convert(response.errorBody());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }
-            }
 
-            @Override
-            public void onFailure(Call<Status> call, Throwable t) {
-                Log.d(TAG, "requestLogin onFailure");
-                loginCallback.getNetworkResponse(t.getMessage(), Define.NETWORK_FAILED);
-            }
-        });
-    }
-
-
-    public void requestSignUp(String id, String pw, String email)
-    {
-        LoginService loginService = NetworkManager.getIntance().getRetrofit(LoginService.class);
-
-        User user = new User();
-        user.setId(id);
-        user.setPassword(pw);
-        user.setEmail(email);
-        Call<User> signUpCall = loginService.signUpUser(user);
-        signUpCall.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if(response.isSuccessful()) {
-                    loginCallback.getNetworkResponse("[SignUp Success]", Define.SIGNUP_SUCCESS);
-                } else {
-                    // 응답 실패
-                    int StatusCode = response.code();
                     try {
-                        loginCallback.getNetworkResponse("[SignUp Fail]\n" + "StatusCode : " + StatusCode + "\n" + "ErrorMsg : " + response.errorBody().string(),
-                                Define.RESPONSE_FAILED);
-                    } catch (IOException e) {
+                        //loginCallback.getNetworkResponse("[Login Fail]\n" + "StatusCode : " + StatusCode + "\n" + "ErrorMsg : " + response.errorBody().string(),Define.RESPONSE_FAILED);
+                        loginCallback.getNetworkResponse(null, Define.LOGIN_FAILED);
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -96,9 +76,13 @@ public class LoginModel {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                loginCallback.getNetworkResponse(t.getMessage(), Define.NETWORK_FAILED);
+                Log.d(TAG, "requestLogin onFailure");
+               //loginCallback.getNetworkResponse(t.getMessage(), Define.NETWORK_FAILED);
+                loginCallback.getNetworkResponse(null, Define.LOGIN_FAILED);
             }
         });
     }
+
+
 
 }

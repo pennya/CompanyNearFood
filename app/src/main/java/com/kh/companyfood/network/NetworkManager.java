@@ -19,11 +19,17 @@ public class NetworkManager {
         return networkManager;
     }
 
+    public static Retrofit.Builder builder = new Retrofit.Builder()
+            .baseUrl(Define.END_POINT)
+            .addConverterFactory(GsonConverterFactory.create());
+
+    public static Retrofit retrofit = builder.build();
+
     public <T> T getRetrofit(Class<T> service) {
-        Retrofit retrofit = new Retrofit.Builder()
+        /*Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Define.END_POINT)
                 .addConverterFactory(GsonConverterFactory.create())
-                .build();
+                .build();*/
 
         return retrofit.create(service);
     }
