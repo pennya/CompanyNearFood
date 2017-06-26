@@ -19,7 +19,6 @@ public interface LoginService {
     @POST("/api/userLogin/")
     Call<Status> loginUser(@Field("id") String id, @Field("password") String pw);
 
-
     @POST("/api/users/")
     Call<User> signUpUser(@Body User user);
 }

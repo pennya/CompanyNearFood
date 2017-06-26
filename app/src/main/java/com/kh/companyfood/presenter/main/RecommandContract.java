@@ -5,10 +5,14 @@ package com.kh.companyfood.presenter.main;
  */
 
 public interface RecommandContract {
+
     interface View extends BaseView<Presenter> {
 
     }
+
     interface Presenter extends BasePresenter {
-        void buttonClickAction();
+
+        void buttonClickAction(int[] category, int[] weather, int[] distance);
+
     }
 }

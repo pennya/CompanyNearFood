@@ -41,7 +41,12 @@ public class RecommandTabFragment extends Fragment implements RecommandContract.
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.buttonClickAction();
+                // UI Checkbox Values
+                int[] category = new int[] {1,3};
+                int[] weather = new int[] {1,3};
+                int[] distance = new int[] {1,2};
+
+                mPresenter.buttonClickAction(category, weather, distance);
             }
         });
 
@@ -52,6 +57,7 @@ public class RecommandTabFragment extends Fragment implements RecommandContract.
 
     @Override
     public void ShowToast(String text) {
+        mTextView.setText(text);
         Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
     }
 }
