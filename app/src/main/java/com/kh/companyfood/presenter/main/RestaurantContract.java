@@ -20,6 +20,8 @@ public interface RestaurantContract {
 
         void onRecyclerItemClick(int position);
 
+        void onRecyclerItemLongClick(int position);
+
     }
 }
 

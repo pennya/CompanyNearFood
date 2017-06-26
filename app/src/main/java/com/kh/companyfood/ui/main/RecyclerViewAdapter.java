@@ -82,6 +82,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         });
 
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if( itemClick != null ) {
+                    itemClick.onLongClick(v, Position);
+                    return true;
+                }
+                return false;
+            }
+        });
+
         // 이미지 로딩을 구현할때 HTTP 통신을 안정되게 구현하고, 비트맵으로 디코딩하면서
         // 메모리가 넘치거나 새지 않도록 주의를 해야함. 네트워크 호출과 디코딩은 단순히 백그라운드
         // 스레드에서 동작하는 것만으로 충분하지 않고 병렬성을 활용해야된다.
@@ -112,5 +123,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 }
 
 interface ItemClick {
+
     void onClick(View view,int position);
+
+    void onLongClick(View view, int position);
 }

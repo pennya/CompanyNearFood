@@ -49,6 +49,11 @@ public class RestaurantPresenterImpl implements RestaurantContract.Presenter{
 
     @Override
     public void onRecyclerItemClick(int position) {
-        mRestaurantContractView.ShowToast("Clicked " + position);
+        mRestaurantContractView.ShowToast("StartActivity " + position);
+    }
+
+    @Override
+    public void onRecyclerItemLongClick(int position) {
+        mRestaurantContractView.ShowToast("Dialog Print " + position);
     }
 }

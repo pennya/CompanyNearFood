@@ -68,6 +68,14 @@ public class RestaurantTabFragment extends Fragment implements RestaurantContrac
                 mPresenter.onRecyclerItemClick(position);
 
             }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+                // 아이템 롱클릭 이벤트
+                mPresenter.onRecyclerItemLongClick(position);
+
+            }
         });
         mRecyclerView.setAdapter(mAdapter);
 
