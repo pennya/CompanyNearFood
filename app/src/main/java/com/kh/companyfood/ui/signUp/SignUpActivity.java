@@ -12,11 +12,14 @@ import com.kh.companyfood.R;
 import com.kh.companyfood.define.Define;
 import com.kh.companyfood.presenter.login.LoginPresenter;
 import com.kh.companyfood.presenter.login.LoginPresenterImpl;
+import com.kh.companyfood.presenter.signUp.SignUpPresenter;
+import com.kh.companyfood.presenter.signUp.SignUpPresenterImpl;
 import com.kh.companyfood.ui.login.LoginActivity;
+import com.kh.companyfood.vo.User;
 
-public class SignUpActivity extends AppCompatActivity implements LoginPresenter.View{
+public class SignUpActivity extends AppCompatActivity implements SignUpPresenter.View, View.OnClickListener{
 
-    private LoginPresenterImpl loginPresenter;
+    private SignUpPresenterImpl signUpPresenterImpl;
     private Button buttonSignup;
     private EditText editTextId;
     private EditText editTextPw;
@@ -28,17 +31,8 @@ public class SignUpActivity extends AppCompatActivity implements LoginPresenter.
         setContentView(R.layout.activity_sign_up);
         
         init();
-        loginPresenter = new LoginPresenterImpl(this, this);
+        signUpPresenterImpl = new SignUpPresenterImpl(this, this);
     }
-
-    Button.OnClickListener mButtonClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            loginPresenter.actionJoinUser(editTextId.getText().toString(),
-                    editTextPw.getText().toString(),
-                    editTextEmail.getText().toString());
-        }
-    };
 
     private void init() {
         buttonSignup = (Button)findViewById(R.id.button_signup);
@@ -46,7 +40,14 @@ public class SignUpActivity extends AppCompatActivity implements LoginPresenter.
         editTextPw = (EditText)findViewById(R.id.editText_signup_pw);
         editTextEmail = (EditText)findViewById(R.id.editText_signup_email);
 
-        buttonSignup.setOnClickListener(mButtonClickListener);
+        buttonSignup.setOnClickListener(this);
+    }
+
+    @Override
+    public void moveMainActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -62,6 +63,19 @@ public class SignUpActivity extends AppCompatActivity implements LoginPresenter.
                 intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 finish();
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.button_signup:
+                User user = new User(editTextId.getText().toString(),
+                        editTextPw.getText().toString(),
+                        editTextEmail.getText().toString());
+
+                signUpPresenterImpl.actionJoinUser(user);
                 break;
         }
     }

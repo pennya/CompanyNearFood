@@ -4,9 +4,8 @@ import android.util.Log;
 
 import com.kh.companyfood.define.Define;
 import com.kh.companyfood.vo.APIError;
-import com.kh.companyfood.vo.Status;
 import com.kh.companyfood.vo.User;
-import com.kh.companyfood.network.LoginService;
+import com.kh.companyfood.network.UserService;
 import com.kh.companyfood.network.NetworkManager;
 
 import java.io.IOException;
@@ -31,28 +30,18 @@ public class LoginModel {
     }
 
     public void requestLogin(String id, String pw){
-        LoginService loginService = NetworkManager.getIntance().getRetrofit(LoginService.class);
+        UserService userService = NetworkManager.getIntance().getRetrofit(UserService.class);
 
-        Call<User> LoginCall = loginService.loginUser(id, pw);
+        Call<User> LoginCall = userService.loginUser(id, pw);
         LoginCall.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 Log.d(TAG, "requestLogin onResponse");
                 Log.d(TAG, "response.code() : "+response.code());
                 // 응답 성공
-                if(response.isSuccessful() && response.code() == 200) {
-
-                    User user = response.body();
+                if(response.isSuccessful()) {
                     // 로그인 성공
-                    /*if(status == Define.LOGIN_SUCCESS)
-                        loginCallback.getNetworkResponse(user, Define.LOGIN_SUCCESS);
-
-                    // 로그인 실패
-                    else {
-                        loginCallback.getNetworkResponse(null, Define.LOGIN_FAILED);
-                    }*/
-
-                    loginCallback.getNetworkResponse(null, Define.LOGIN_FAILED);
+                    loginCallback.getNetworkResponse(response.body(), Define.LOGIN_SUCCESS);
                 } else {
                     // 응답 실패
                     int StatusCode = response.code();

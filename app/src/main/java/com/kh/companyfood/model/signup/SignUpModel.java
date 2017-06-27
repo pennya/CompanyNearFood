@@ -1,7 +1,7 @@
 package com.kh.companyfood.model.signup;
 
 import com.kh.companyfood.define.Define;
-import com.kh.companyfood.network.LoginService;
+import com.kh.companyfood.network.UserService;
 import com.kh.companyfood.network.NetworkManager;
 import com.kh.companyfood.vo.User;
 
@@ -23,15 +23,11 @@ public class SignUpModel {
         this.signUpCallback = signUpCallback;
     }
 
-    public void requestSignUp(String id, String pw, String email)
+    public void requestSignUp(User user)
     {
-        LoginService loginService = NetworkManager.getIntance().getRetrofit(LoginService.class);
+        UserService userService = NetworkManager.getIntance().getRetrofit(UserService.class);
 
-        User user = new User();
-        user.setId(id);
-        user.setPassword(pw);
-        user.setEmail(email);
-        Call<User> signUpCall = loginService.signUpUser(user);
+        Call<User> signUpCall = userService.signUpUser(user);
         signUpCall.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {

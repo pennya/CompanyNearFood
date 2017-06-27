@@ -13,7 +13,7 @@ import retrofit2.http.POST;
  * Created by teruten on 2017-06-07.
  */
 
-public interface LoginService {
+public interface UserService {
     @FormUrlEncoded
     @POST("/api/login/")
     Call<User> loginUser(@Field("id") String id, @Field("password") String pw);
