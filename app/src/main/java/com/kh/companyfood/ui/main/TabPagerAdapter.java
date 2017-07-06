@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.kh.companyfood.presenter.main.RecommandPresenterImpl;
-import com.kh.companyfood.presenter.main.RestaurantPresenterImpl;
-import com.kh.companyfood.presenter.main.SettingPresenterImpl;
+import com.kh.companyfood.ui.recommand.RecommandTabFragment;
+import com.kh.companyfood.ui.restaurant.RestaurantTabFragment;
+import com.kh.companyfood.ui.setting.SettingTabFragment;
 
 /**
  * Created by KIM on 2017-06-21.
@@ -33,8 +33,8 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
                 return recommandTabFragment;
             }
             case 2: {
-                SettingFragment settingFragment = SettingFragment.newInstance();
-                return settingFragment;
+                SettingTabFragment settingTabFragment = SettingTabFragment.newInstance();
+                return settingTabFragment;
             }
             default:
                 return null;

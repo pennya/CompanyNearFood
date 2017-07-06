@@ -1,4 +1,4 @@
-package com.kh.companyfood.ui.main;
+package com.kh.companyfood.ui.setting;
 
 
 import android.os.Bundle;
@@ -6,9 +6,9 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 
 import com.kh.companyfood.R;
 
-public class SettingFragment extends PreferenceFragmentCompat {
+public class SettingTabFragment extends PreferenceFragmentCompat {
 
-    public SettingFragment() {
+    public SettingTabFragment() {
 
     }
 
@@ -17,7 +17,7 @@ public class SettingFragment extends PreferenceFragmentCompat {
         setPreferencesFromResource(R.xml.preferences, rootKey);
     }
 
-    public static SettingFragment newInstance() {
-        return new SettingFragment();
+    public static SettingTabFragment newInstance() {
+        return new SettingTabFragment();
     }
 }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.kh.companyfood.R;
+import com.kh.companyfood.presenter.main.AdapterPresenter;
 
 import java.util.ArrayList;
 
@@ -18,7 +19,7 @@ import java.util.ArrayList;
  * Created by KIM on 2017-06-22.
  */
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements AdapterContract {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements AdapterPresenter {
 
     private ItemClick itemClick;
 
@@ -120,11 +121,4 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void notifyAdapter() {
         notifyDataSetChanged();
     }
-}
-
-interface ItemClick {
-
-    void onClick(View view,int position);
-
-    void onLongClick(View view, int position);
 }

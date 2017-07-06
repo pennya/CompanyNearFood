@@ -1,8 +1,5 @@
-package com.kh.companyfood.presenter.main;
+package com.kh.companyfood.presenter.restaurant;
 
-import android.support.annotation.NonNull;
-
-import com.kh.companyfood.ui.main.AdapterContract;
 import com.kh.companyfood.ui.main.RecyclerViewAdapter;
 import com.kh.companyfood.ui.main.RecyclerViewData;
 
@@ -12,16 +9,16 @@ import java.util.ArrayList;
  * Created by KIM on 2017-06-21.
  */
 
-public class RestaurantPresenterImpl implements RestaurantContract.Presenter{
+public class RestaurantPresenterImpl implements RestaurantPresenter{
 
-    private final RestaurantContract.View mRestaurantContractView;
+    private final RestaurantPresenter.View mView;
 
     private ArrayList<RecyclerViewData> mDataList;
 
     private RecyclerViewAdapter mAdapter;
 
-    public RestaurantPresenterImpl(RestaurantContract.View RestaurantContractView, RecyclerViewAdapter adapter) {
-        mRestaurantContractView = RestaurantContractView;
+    public RestaurantPresenterImpl(RestaurantPresenter.View view, RecyclerViewAdapter adapter) {
+        mView = view;
         mAdapter = adapter;
         mDataList = new ArrayList<>();
     }
@@ -49,11 +46,11 @@ public class RestaurantPresenterImpl implements RestaurantContract.Presenter{
 
     @Override
     public void onRecyclerItemClick(int position) {
-        mRestaurantContractView.ShowToast("StartActivity " + position);
+        mView.ShowToast("StartActivity " + position);
     }
 
     @Override
     public void onRecyclerItemLongClick(int position) {
-        mRestaurantContractView.ShowToast("Dialog Print " + position);
+        mView.ShowToast("Dialog Print " + position);
     }
 }

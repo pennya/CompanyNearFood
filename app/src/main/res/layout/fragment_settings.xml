@@ -10,7 +10,7 @@
         android:text="Hello3"/>
 
     <Button
-        android:id="@+id/btn_sample"
+        android:id="@+id/button_sample"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Send"/>

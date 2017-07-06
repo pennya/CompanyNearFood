@@ -12,8 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkManager {
     private static final NetworkManager networkManager = new NetworkManager();
 
-    private NetworkManager() {
-    }
+    private NetworkManager() { }
 
     public static NetworkManager getIntance() {
         return networkManager;

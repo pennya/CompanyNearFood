@@ -1,4 +1,4 @@
-package com.kh.companyfood.presenter.main;
+package com.kh.companyfood.presenter.recommand;
 
 import com.kh.companyfood.model.recommnad.RecommandCallback;
 import com.kh.companyfood.model.recommnad.RecommandModel;
@@ -7,14 +7,14 @@ import com.kh.companyfood.model.recommnad.RecommandModel;
  * Created by KIM on 2017-06-22.
  */
 
-public class RecommandPresenterImpl implements RecommandContract.Presenter , RecommandCallback{
+public class RecommandPresenterImpl implements RecommandPresenter , RecommandCallback{
 
-    private RecommandContract.View mRecommandContractView;
+    private RecommandPresenter.View mView;
 
     private RecommandModel mRecommandModel;
 
-    public RecommandPresenterImpl(RecommandContract.View RecommandContractView) {
-        mRecommandContractView = RecommandContractView;
+    public RecommandPresenterImpl(RecommandPresenter.View view) {
+        mView = view;
         mRecommandModel = new RecommandModel(this);
     }
 
@@ -25,6 +25,6 @@ public class RecommandPresenterImpl implements RecommandContract.Presenter , Rec
 
     @Override
     public void getNetworkResponse(String text, int status) {
-        mRecommandContractView.ShowToast(text + " " + status);
+        mView.ShowToast(text + " " + status);
     }
 }

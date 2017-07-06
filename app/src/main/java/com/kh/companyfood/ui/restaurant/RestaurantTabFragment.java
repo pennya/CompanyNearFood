@@ -1,4 +1,4 @@
-package com.kh.companyfood.ui.main;
+package com.kh.companyfood.ui.restaurant;
 
 
 import android.os.Bundle;
@@ -9,21 +9,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kh.companyfood.R;
-import com.kh.companyfood.presenter.main.RestaurantContract;
-import com.kh.companyfood.presenter.main.RestaurantPresenterImpl;
-
-import java.util.ArrayList;
+import com.kh.companyfood.presenter.restaurant.RestaurantPresenter;
+import com.kh.companyfood.presenter.restaurant.RestaurantPresenterImpl;
+import com.kh.companyfood.ui.main.ItemClick;
+import com.kh.companyfood.ui.main.RecyclerViewAdapter;
 
 /**
  * Created by KIM on 2017-06-21.
  */
 
-public class RestaurantTabFragment extends Fragment implements RestaurantContract.View{
+public class RestaurantTabFragment extends Fragment implements RestaurantPresenter.View, ItemClick{
 
     private static final String TAG = "KJH";
 
@@ -46,7 +44,7 @@ public class RestaurantTabFragment extends Fragment implements RestaurantContrac
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.restaurant_frag, container, false);
+        View root = inflater.inflate(R.layout.fragment_restaurant, container, false);
 
         mRecyclerView = (RecyclerView)root.findViewById(R.id.recycler_view);
 
@@ -60,23 +58,7 @@ public class RestaurantTabFragment extends Fragment implements RestaurantContrac
 
         // 어댑터 설정
         mAdapter = new RecyclerViewAdapter(getActivity());
-        mAdapter.setItemClick(new ItemClick() {
-            @Override
-            public void onClick(View view, int position) {
-
-                // 아이템 클릭 이벤트
-                mPresenter.onRecyclerItemClick(position);
-
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-                // 아이템 롱클릭 이벤트
-                mPresenter.onRecyclerItemLongClick(position);
-
-            }
-        });
+        mAdapter.setItemClick(this);
         mRecyclerView.setAdapter(mAdapter);
 
         // 데이터 요청
@@ -89,5 +71,17 @@ public class RestaurantTabFragment extends Fragment implements RestaurantContrac
     @Override
     public void ShowToast(String text) {
         Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+        // 아이템 클릭 이벤트
+        mPresenter.onRecyclerItemClick(position);
+    }
+
+    @Override
+    public void onLongClick(View view, int position) {
+        // 아이템 롱클릭 이벤트
+        mPresenter.onRecyclerItemLongClick(position);
     }
 }
