@@ -1,4 +1,4 @@
-package com.kh.companyfood.ui.main;
+package com.kh.companyfood.adapter.restaurant;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.kh.companyfood.R;
 import com.kh.companyfood.presenter.main.AdapterPresenter;
+import com.kh.companyfood.presenter.restaurant.RestaurantPresenter;
+import com.kh.companyfood.ui.main.ItemClick;
 
 import java.util.ArrayList;
 
@@ -23,15 +25,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private ItemClick itemClick;
 
-    private ArrayList<RecyclerViewData> mDataList;
+    private ArrayList<RecyclerViewData> mDataList = new ArrayList<>();
 
     private Context mContext;
-
+    private RestaurantPresenter restaurantPresenter;
     /**
      * 각 데이터 항목을 포함한 뷰 참조를 제공합니다.
      * 뷰 홀더에서 데이터 항목을 포함한 뷰에 접근할 권한을 제공합니다.
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView mImageView;
 
         public TextView mTextView;
@@ -43,8 +45,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    public RecyclerViewAdapter(Context context) {
+    public RecyclerViewAdapter(Context context, RestaurantPresenter restaurantPresenter) {
         mContext = context;
+        this.restaurantPresenter = restaurantPresenter;
     }
 
     public void setItemClick(ItemClick itemClick) {
@@ -61,7 +64,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                 .inflate(R.layout.content_cardview, parent, false);
 
         // 뷰의 size, margin, padding 등 레이아웃 세팅
-
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -73,23 +75,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         // 아이템 클릭하면 뷰에게 보냄
-        final int Position = position;
+        final int ItemPosition = position;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if( itemClick != null ) {
-                    itemClick.onClick(v, Position);
-                }
+                restaurantPresenter.onRecyclerItemClick(ItemPosition);
             }
         });
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if( itemClick != null ) {
-                    itemClick.onLongClick(v, Position);
-                    return true;
-                }
+                restaurantPresenter.onRecyclerItemLongClick(ItemPosition);
+
                 return false;
             }
         });
@@ -100,7 +98,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         // 화면회전, 전환, 스크롤때 반복적인 요청이 가지 않도록 이미지를 캐시하고, 불필요해진 요청은
         // 빠른 시점에 취소해서 더 나은 UI 반응을 제공하면서 자원을 절약해야되는데
         // 이런 것들을 해결해둔 대표적인 라이브러리중 하나인 Glide를 사용함
-        Glide.with(mContext).load(mDataList.get(position).mImage).into(holder.mImageView);
+        Glide.with(mContext)
+                .load(mDataList.get(position).mImage)
+                .into(holder.mImageView);
         holder.mTextView.setText(mDataList.get(position).mText);
     }
 

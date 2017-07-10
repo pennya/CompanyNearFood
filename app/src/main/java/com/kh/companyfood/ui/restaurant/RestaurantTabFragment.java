@@ -12,16 +12,20 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.kh.companyfood.R;
+import com.kh.companyfood.adapter.restaurant.RecyclerViewData;
+import com.kh.companyfood.model.restaurant.RestaurantCallback;
 import com.kh.companyfood.presenter.restaurant.RestaurantPresenter;
 import com.kh.companyfood.presenter.restaurant.RestaurantPresenterImpl;
 import com.kh.companyfood.ui.main.ItemClick;
-import com.kh.companyfood.ui.main.RecyclerViewAdapter;
+import com.kh.companyfood.adapter.restaurant.RecyclerViewAdapter;
+
+import java.util.ArrayList;
 
 /**
  * Created by KIM on 2017-06-21.
  */
 
-public class RestaurantTabFragment extends Fragment implements RestaurantPresenter.View, ItemClick{
+public class RestaurantTabFragment extends Fragment implements RestaurantPresenter.View, RestaurantCallback{
 
     private static final String TAG = "KJH";
 
@@ -32,8 +36,9 @@ public class RestaurantTabFragment extends Fragment implements RestaurantPresent
     private RecyclerViewAdapter mAdapter;
 
     private RecyclerView.LayoutManager mLayoutManager;
+    private RestaurantPresenter restaurantPresenter;
 
-   public RestaurantTabFragment() {
+    public RestaurantTabFragment() {
 
     }
 
@@ -56,14 +61,16 @@ public class RestaurantTabFragment extends Fragment implements RestaurantPresent
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        restaurantPresenter = new RestaurantPresenterImpl(this);
+
         // 어댑터 설정
-        mAdapter = new RecyclerViewAdapter(getActivity());
-        mAdapter.setItemClick(this);
+        mAdapter = new RecyclerViewAdapter(getActivity(), restaurantPresenter);
+        //mAdapter.setItemClick(this);
         mRecyclerView.setAdapter(mAdapter);
 
-        // 데이터 요청
+        /*// 데이터 요청
         mPresenter = new RestaurantPresenterImpl(this, mAdapter);
-        mPresenter.loadItems();
+        mPresenter.loadItems();*/
 
         return root;
     }
@@ -74,14 +81,7 @@ public class RestaurantTabFragment extends Fragment implements RestaurantPresent
     }
 
     @Override
-    public void onClick(View view, int position) {
-        // 아이템 클릭 이벤트
-        mPresenter.onRecyclerItemClick(position);
-    }
+    public void getNetworkResponse(ArrayList<RecyclerViewData> list, int status) {
 
-    @Override
-    public void onLongClick(View view, int position) {
-        // 아이템 롱클릭 이벤트
-        mPresenter.onRecyclerItemLongClick(position);
     }
 }

@@ -1,36 +1,25 @@
-package com.kh.companyfood.presenter.restaurant;
+package com.kh.companyfood.model.restaurant;
 
-import com.kh.companyfood.adapter.restaurant.RecyclerViewAdapter;
 import com.kh.companyfood.adapter.restaurant.RecyclerViewData;
-import com.kh.companyfood.model.restaurant.RestaurantModel;
 
 import java.util.ArrayList;
 
 /**
- * Created by KIM on 2017-06-21.
+ * Created by teruten on 2017-07-10.
  */
 
-public class RestaurantPresenterImpl implements RestaurantPresenter{
-
-    private final RestaurantPresenter.View mView;
+public class RestaurantModel {
 
     private ArrayList<RecyclerViewData> mDataList;
+    private RestaurantCallback restaurantCallback;
 
-    private RecyclerViewAdapter mAdapter;
-    private RestaurantModel restaurantModel;
-
-    public RestaurantPresenterImpl(RestaurantPresenter.View view) {
-        mView = view;
-        //mAdapter = adapter;
-        //mDataList = new ArrayList<>();
-
-        restaurantModel = new RestaurantModel();
+    public RestaurantModel(RestaurantCallback restaurantCallback){
+        this.restaurantCallback = restaurantCallback;
     }
 
-    @Override
-    public void loadItems() {
-
-        /*// Model에게 데이터 요청 및 응답
+    public void requestRestaurantList(){
+        mDataList = new ArrayList<>();
+        // Model에게 데이터 요청 및 응답
         mDataList.add(new RecyclerViewData("http://cfs12.blog.daum.net/image/3/blog/2008/09/28/22/44/48df88026332d&filename=IMGP2487.JPG",
                 "음식점1"));
         mDataList.add(new RecyclerViewData("http://www.kfoodtimes.com/news/photo/201505/473_792_2546.jpg",
@@ -44,17 +33,6 @@ public class RestaurantPresenterImpl implements RestaurantPresenter{
         mDataList.add(new RecyclerViewData("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsaHKcV4yonYsbhW9pj8kPXfEFzY5fL6A1yCXNdhltZF-9LHRi",
                 "음식점6"));
 
-        mAdapter.setItems(mDataList);
-        mAdapter.notifyAdapter();*/
-    }
-
-    @Override
-    public void onRecyclerItemClick(int position) {
-        mView.ShowToast("StartActivity " + position);
-    }
-
-    @Override
-    public void onRecyclerItemLongClick(int position) {
-        mView.ShowToast("Dialog Print " + position);
+        restaurantCallback.getNetworkResponse(mDataList, 200);
     }
 }
