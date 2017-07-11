@@ -7,10 +7,9 @@ package com.kh.companyfood.presenter.login;
 public interface LoginPresenter {
 
     void actionLogin(String id, String pw);
-    void actionJoinUser(String id, String pw, String email);
 
     interface View{
-
+        void moveMainActivity();
         void showToast(String text);
         void actionResult(int loginSuccess);
     }

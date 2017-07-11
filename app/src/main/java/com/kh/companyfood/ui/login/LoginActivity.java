@@ -3,6 +3,7 @@ package com.kh.companyfood.ui.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,10 +17,11 @@ import com.kh.companyfood.define.Define;
 import com.kh.companyfood.presenter.login.LoginPresenter;
 import com.kh.companyfood.presenter.login.LoginPresenterImpl;
 import com.kh.companyfood.ui.main.MainActivity;
+import com.kh.companyfood.ui.signUp.SignUpActivity;
 
-public class LoginActivity extends AppCompatActivity implements LoginPresenter.View{
+public class LoginActivity extends AppCompatActivity implements LoginPresenter.View, View.OnClickListener{
 
-    LoginPresenterImpl loginPresenterImpl;
+    LoginPresenterImpl loginPresenter;
     private Button button;
     private EditText editTextId;
     private EditText editTextPw;
@@ -32,28 +34,22 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        fab.setOnClickListener(this);
 
         editTextId = (EditText)findViewById(R.id.editText_id);
         editTextPw = (EditText)findViewById(R.id.editText_pw);
 
         button = (Button) findViewById(R.id.button_login);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("test1", "LoginActivity onClick");
-                loginPresenterImpl.actionLogin(editTextId.getText().toString(), editTextPw.getText().toString());
-            }
-        });
+        button.setOnClickListener(this);
 
-        loginPresenterImpl = new LoginPresenterImpl(this, this);
+        loginPresenter = new LoginPresenterImpl(this, this);
+    }
+
+    @Override
+    public void moveMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -68,6 +64,20 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         switch(loginSuccess) {
             case Define.LOGIN_SUCCESS:
                 intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.button_login:
+                loginPresenter.actionLogin(editTextId.getText().toString(), editTextPw.getText().toString());
+                break;
+            case R.id.fab:
+                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
                 startActivity(intent);
                 finish();
                 break;
