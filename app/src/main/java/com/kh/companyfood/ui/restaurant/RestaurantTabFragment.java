@@ -52,16 +52,13 @@ public class RestaurantTabFragment extends Fragment implements RestaurantPresent
         // 성능을 향상시키기 위해 이 설정을 사용하면된다.
         mRecyclerView.setHasFixedSize(true);
 
-        // 레이아웃 매니저 사용
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        // 어댑터 설정
         mAdapter = new RecyclerViewAdapter(getActivity());
         mAdapter.setItemClick(this);
         mRecyclerView.setAdapter(mAdapter);
 
-        // 데이터 요청
         mPresenter = new RestaurantPresenterImpl(this, mAdapter);
         mPresenter.loadItems();
 
@@ -75,13 +72,11 @@ public class RestaurantTabFragment extends Fragment implements RestaurantPresent
 
     @Override
     public void onClick(View view, int position) {
-        // 아이템 클릭 이벤트
         mPresenter.onRecyclerItemClick(position);
     }
 
     @Override
     public void onLongClick(View view, int position) {
-        // 아이템 롱클릭 이벤트
         mPresenter.onRecyclerItemLongClick(position);
     }
 }

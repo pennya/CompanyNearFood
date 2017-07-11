@@ -26,7 +26,6 @@ public class RestaurantPresenterImpl implements RestaurantPresenter{
     @Override
     public void loadItems() {
 
-        // Model에게 데이터 요청 및 응답
         mDataList.add(new RecyclerViewData("http://cfs12.blog.daum.net/image/3/blog/2008/09/28/22/44/48df88026332d&filename=IMGP2487.JPG",
                 "음식점1"));
         mDataList.add(new RecyclerViewData("http://www.kfoodtimes.com/news/photo/201505/473_792_2546.jpg",

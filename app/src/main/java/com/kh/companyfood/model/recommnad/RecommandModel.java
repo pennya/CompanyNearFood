@@ -29,7 +29,6 @@ public class RecommandModel {
         postRecommandCall.enqueue(new Callback<List<Restaurant>>() {
             @Override
             public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
-                // 응답 성공
                 if(response.isSuccessful()) {
                     List<Restaurant> restaurantList = response.body();
 
@@ -46,7 +45,6 @@ public class RecommandModel {
 
                     mRecommandCallback.getNetworkResponse(restaurant_txt, 200);
                 } else {
-                    // 응답 실패
                     int StatusCode = response.code();
                     mRecommandCallback.getNetworkResponse("Failed", StatusCode);
                 }
