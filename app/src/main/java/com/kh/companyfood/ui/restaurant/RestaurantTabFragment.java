@@ -13,10 +13,8 @@ import android.widget.Toast;
 
 import com.kh.companyfood.R;
 import com.kh.companyfood.adapter.restaurant.RecyclerViewData;
-import com.kh.companyfood.model.restaurant.RestaurantCallback;
 import com.kh.companyfood.presenter.restaurant.RestaurantPresenter;
 import com.kh.companyfood.presenter.restaurant.RestaurantPresenterImpl;
-import com.kh.companyfood.ui.main.ItemClick;
 import com.kh.companyfood.adapter.restaurant.RecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -25,7 +23,7 @@ import java.util.ArrayList;
  * Created by KIM on 2017-06-21.
  */
 
-public class RestaurantTabFragment extends Fragment implements RestaurantPresenter.View, RestaurantCallback{
+public class RestaurantTabFragment extends Fragment implements RestaurantPresenter.View{
 
     private static final String TAG = "KJH";
 
@@ -57,20 +55,13 @@ public class RestaurantTabFragment extends Fragment implements RestaurantPresent
         // 성능을 향상시키기 위해 이 설정을 사용하면된다.
         mRecyclerView.setHasFixedSize(true);
 
-        // 레이아웃 매니저 사용
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         restaurantPresenter = new RestaurantPresenterImpl(this);
-
-        // 어댑터 설정
         mAdapter = new RecyclerViewAdapter(getActivity(), restaurantPresenter);
-        //mAdapter.setItemClick(this);
         mRecyclerView.setAdapter(mAdapter);
-
-        /*// 데이터 요청
-        mPresenter = new RestaurantPresenterImpl(this, mAdapter);
-        mPresenter.loadItems();*/
+        restaurantPresenter.loadItems();
 
         return root;
     }
@@ -81,7 +72,8 @@ public class RestaurantTabFragment extends Fragment implements RestaurantPresent
     }
 
     @Override
-    public void getNetworkResponse(ArrayList<RecyclerViewData> list, int status) {
-
+    public void addList(ArrayList<RecyclerViewData> list) {
+        mAdapter.setItems(list);
+        mAdapter.notifyDataSetChanged();
     }
 }
