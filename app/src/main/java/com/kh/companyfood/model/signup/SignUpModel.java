@@ -17,10 +17,10 @@ import retrofit2.Response;
 
 public class SignUpModel {
 
-    private SignUpCallback signUpCallback;
+    private SignUpCallback mSignUpCallback;
 
     public SignUpModel(SignUpCallback signUpCallback){
-        this.signUpCallback = signUpCallback;
+        this.mSignUpCallback = signUpCallback;
     }
 
     public void requestSignUp(User user)
@@ -32,12 +32,12 @@ public class SignUpModel {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.isSuccessful()) {
-                    signUpCallback.getNetworkResponse("[SignUp Success]", Define.SIGNUP_SUCCESS);
+                    mSignUpCallback.getNetworkResponse("[SignUp Success]", Define.SIGNUP_SUCCESS);
                 } else {
                     // 응답 실패
                     int StatusCode = response.code();
                     try {
-                        signUpCallback.getNetworkResponse("[SignUp Fail]\n" + "StatusCode : " + StatusCode + "\n" + "ErrorMsg : " + response.errorBody().string(),
+                        mSignUpCallback.getNetworkResponse("[SignUp Fail]\n" + "StatusCode : " + StatusCode + "\n" + "ErrorMsg : " + response.errorBody().string(),
                                 Define.RESPONSE_FAILED);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -47,7 +47,7 @@ public class SignUpModel {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                signUpCallback.getNetworkResponse(t.getMessage(), Define.NETWORK_FAILED);
+                mSignUpCallback.getNetworkResponse(t.getMessage(), Define.NETWORK_FAILED);
             }
         });
     }

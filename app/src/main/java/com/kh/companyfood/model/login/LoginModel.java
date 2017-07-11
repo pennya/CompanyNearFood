@@ -22,11 +22,10 @@ import retrofit2.Response;
  */
 
 public class LoginModel {
-    private final String TAG = "KJH";
-    LoginCallback loginCallback;
+    private LoginCallback mLoginCallback;
 
     public LoginModel(LoginCallback loginCallback){
-        this.loginCallback = loginCallback;
+        this.mLoginCallback = loginCallback;
     }
 
     public void requestLogin(String id, String pw){
@@ -36,12 +35,12 @@ public class LoginModel {
         LoginCall.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Log.d(TAG, "requestLogin onResponse");
-                Log.d(TAG, "response.code() : "+response.code());
+                Log.d(Define.LOG_TAG, "requestLogin onResponse");
+                Log.d(Define.LOG_TAG, "response.code() : "+response.code());
                 // 응답 성공
                 if(response.isSuccessful()) {
                     // 로그인 성공
-                    loginCallback.getNetworkResponse(response.body(), Define.LOGIN_SUCCESS);
+                    mLoginCallback.getNetworkResponse(response.body(), Define.LOGIN_SUCCESS);
                 } else {
                     // 응답 실패
                     int StatusCode = response.code();
@@ -56,7 +55,7 @@ public class LoginModel {
 
                     try {
                         //loginCallback.getNetworkResponse("[Login Fail]\n" + "StatusCode : " + StatusCode + "\n" + "ErrorMsg : " + response.errorBody().string(),Define.RESPONSE_FAILED);
-                        loginCallback.getNetworkResponse(null, Define.LOGIN_FAILED);
+                        mLoginCallback.getNetworkResponse(null, Define.LOGIN_FAILED);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -65,9 +64,9 @@ public class LoginModel {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Log.d(TAG, "requestLogin onFailure");
-               //loginCallback.getNetworkResponse(t.getMessage(), Define.NETWORK_FAILED);
-                loginCallback.getNetworkResponse(null, Define.LOGIN_FAILED);
+                Log.d(Define.LOG_TAG, "requestLogin onFailure");
+                //loginCallback.getNetworkResponse(t.getMessage(), Define.NETWORK_FAILED);
+                mLoginCallback.getNetworkResponse(null, Define.LOGIN_FAILED);
             }
         });
     }
