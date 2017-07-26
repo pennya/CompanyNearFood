@@ -15,4 +15,10 @@
         android:layout_height="wrap_content"
         android:text="Send"/>
 
+    <Button
+        android:id="@+id/button_sample2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="preferences test"/>
+
 </LinearLayout>

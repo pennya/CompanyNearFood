@@ -11,4 +11,9 @@ public class SettingPresenterImpl implements SettingPresenter {
     public SettingPresenterImpl(SettingPresenter.View view) {
         mView = view;
     }
+
+    @Override
+    public void loadItems() {
+
+    }
 }

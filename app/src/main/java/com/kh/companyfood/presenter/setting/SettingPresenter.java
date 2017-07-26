@@ -6,6 +6,7 @@ package com.kh.companyfood.presenter.setting;
 
 public interface SettingPresenter {
 
+    void loadItems();
 
     interface View  {
 
