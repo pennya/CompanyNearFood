@@ -10,5 +10,7 @@ public interface SettingPresenter {
 
     interface View  {
 
+        void getNetworkResponse(String text);
+
     }
 }
