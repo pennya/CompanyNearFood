@@ -12,28 +12,29 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.kh.companyfood.R;
+import com.kh.companyfood.adapter.restaurant.RecyclerViewData;
 import com.kh.companyfood.presenter.restaurant.RestaurantPresenter;
 import com.kh.companyfood.presenter.restaurant.RestaurantPresenterImpl;
-import com.kh.companyfood.ui.main.ItemClick;
-import com.kh.companyfood.ui.main.RecyclerViewAdapter;
+import com.kh.companyfood.adapter.restaurant.RecyclerViewAdapter;
+
+import java.util.ArrayList;
 
 /**
  * Created by KIM on 2017-06-21.
  */
 
-public class RestaurantTabFragment extends Fragment implements RestaurantPresenter.View, ItemClick{
+public class RestaurantTabFragment extends Fragment implements RestaurantPresenter.View{
 
     private static final String TAG = "KJH";
-
-    private RestaurantPresenterImpl mPresenter;
 
     private RecyclerView mRecyclerView;
 
     private RecyclerViewAdapter mAdapter;
 
     private RecyclerView.LayoutManager mLayoutManager;
+    private RestaurantPresenter restaurantPresenter;
 
-   public RestaurantTabFragment() {
+    public RestaurantTabFragment() {
 
     }
 
@@ -55,12 +56,10 @@ public class RestaurantTabFragment extends Fragment implements RestaurantPresent
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new RecyclerViewAdapter(getActivity());
-        mAdapter.setItemClick(this);
+        restaurantPresenter = new RestaurantPresenterImpl(this);
+        mAdapter = new RecyclerViewAdapter(getActivity(), restaurantPresenter);
         mRecyclerView.setAdapter(mAdapter);
-
-        mPresenter = new RestaurantPresenterImpl(this, mAdapter);
-        mPresenter.loadItems();
+        restaurantPresenter.loadItems();
 
         return root;
     }
@@ -71,12 +70,8 @@ public class RestaurantTabFragment extends Fragment implements RestaurantPresent
     }
 
     @Override
-    public void onClick(View view, int position) {
-        mPresenter.onRecyclerItemClick(position);
-    }
-
-    @Override
-    public void onLongClick(View view, int position) {
-        mPresenter.onRecyclerItemLongClick(position);
+    public void addList(ArrayList<RecyclerViewData> list) {
+        mAdapter.setItems(list);
+        mAdapter.notifyDataSetChanged();
     }
 }

@@ -1,4 +1,4 @@
-package com.kh.companyfood.ui.main;
+package com.kh.companyfood.adapter.restaurant;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.kh.companyfood.R;
 import com.kh.companyfood.presenter.main.AdapterPresenter;
+import com.kh.companyfood.presenter.restaurant.RestaurantPresenter;
 
 import java.util.ArrayList;
 
@@ -21,12 +22,12 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements AdapterPresenter {
 
-    private ItemClick itemClick;
 
-    private ArrayList<RecyclerViewData> mDataList;
+    private ArrayList<RecyclerViewData> mDataList = new ArrayList<>();
+
 
     private Context mContext;
-
+    private RestaurantPresenter restaurantPresenter;
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView mImageView;
 
@@ -39,48 +40,47 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    public RecyclerViewAdapter(Context context) {
+    public RecyclerViewAdapter(Context context, RestaurantPresenter restaurantPresenter) {
         mContext = context;
+        this.restaurantPresenter = restaurantPresenter;
     }
 
-    public void setItemClick(ItemClick itemClick) {
-        this.itemClick = itemClick;
-    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(parent.getContext())
                                 .inflate(R.layout.content_cardview, parent, false);
 
         // 뷰의 size, margin, padding 등 레이아웃 세팅
-
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
         
-        final int Position = position;
+
+        final int ItemPosition = position;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if( itemClick != null ) {
-                    itemClick.onClick(v, Position);
-                }
+
+                restaurantPresenter.onRecyclerItemClick(ItemPosition);
             }
         });
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if( itemClick != null ) {
-                    itemClick.onLongClick(v, Position);
-                    return true;
-                }
+
+                restaurantPresenter.onRecyclerItemLongClick(ItemPosition);
+
                 return false;
             }
         });
+
 
         Glide.with(mContext)
                 .load(mDataList.get(position).mImage)
@@ -88,6 +88,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.mTextView.setText(mDataList.get(position).mText);
     }
+
 
     @Override
     public int getItemCount() {

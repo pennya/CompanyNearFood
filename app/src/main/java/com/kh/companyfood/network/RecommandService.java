@@ -1,7 +1,6 @@
 package com.kh.companyfood.network;
 
 import com.kh.companyfood.model.Restaurant;
-import com.kh.companyfood.model.Status;
 
 import java.util.List;
 
