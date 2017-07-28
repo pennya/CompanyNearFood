@@ -1,6 +1,6 @@
 package com.kh.companyfood.presenter.main;
 
-import com.kh.companyfood.ui.main.RecyclerViewData;
+import com.kh.companyfood.adapter.restaurant.RecyclerViewData;
 
 import java.util.ArrayList;
 

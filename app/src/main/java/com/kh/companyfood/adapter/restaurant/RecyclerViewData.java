@@ -1,4 +1,4 @@
-package com.kh.companyfood.ui.main;
+package com.kh.companyfood.adapter.restaurant;
 
 import android.widget.ImageView;
 import android.widget.TextView;

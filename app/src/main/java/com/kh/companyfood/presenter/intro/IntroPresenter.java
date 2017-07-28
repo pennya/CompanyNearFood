@@ -5,4 +5,12 @@ package com.kh.companyfood.presenter.intro;
  */
 
 public interface IntroPresenter {
+
+    void onVersionCheck();
+
+    interface View{
+        void moveMainActivity();
+        void moveLoginActivity();
+        void showToast();
+    }
 }

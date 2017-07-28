@@ -12,16 +12,18 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.kh.companyfood.R;
+import com.kh.companyfood.adapter.restaurant.RecyclerViewData;
 import com.kh.companyfood.presenter.restaurant.RestaurantPresenter;
 import com.kh.companyfood.presenter.restaurant.RestaurantPresenterImpl;
-import com.kh.companyfood.ui.main.ItemClick;
-import com.kh.companyfood.ui.main.RecyclerViewAdapter;
+import com.kh.companyfood.adapter.restaurant.RecyclerViewAdapter;
+
+import java.util.ArrayList;
 
 /**
  * Created by KIM on 2017-06-21.
  */
 
-public class RestaurantTabFragment extends Fragment implements RestaurantPresenter.View, ItemClick{
+public class RestaurantTabFragment extends Fragment implements RestaurantPresenter.View{
 
     private static final String TAG = "KJH";
 
@@ -32,8 +34,9 @@ public class RestaurantTabFragment extends Fragment implements RestaurantPresent
     private RecyclerViewAdapter mAdapter;
 
     private RecyclerView.LayoutManager mLayoutManager;
+    private RestaurantPresenter restaurantPresenter;
 
-   public RestaurantTabFragment() {
+    public RestaurantTabFragment() {
 
     }
 
@@ -52,18 +55,13 @@ public class RestaurantTabFragment extends Fragment implements RestaurantPresent
         // 성능을 향상시키기 위해 이 설정을 사용하면된다.
         mRecyclerView.setHasFixedSize(true);
 
-        // 레이아웃 매니저 사용
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        // 어댑터 설정
-        mAdapter = new RecyclerViewAdapter(getActivity());
-        mAdapter.setItemClick(this);
+        restaurantPresenter = new RestaurantPresenterImpl(this);
+        mAdapter = new RecyclerViewAdapter(getActivity(), restaurantPresenter);
         mRecyclerView.setAdapter(mAdapter);
-
-        // 데이터 요청
-        mPresenter = new RestaurantPresenterImpl(this, mAdapter);
-        mPresenter.loadItems();
+        restaurantPresenter.loadItems();
 
         return root;
     }
@@ -74,14 +72,8 @@ public class RestaurantTabFragment extends Fragment implements RestaurantPresent
     }
 
     @Override
-    public void onClick(View view, int position) {
-        // 아이템 클릭 이벤트
-        mPresenter.onRecyclerItemClick(position);
-    }
-
-    @Override
-    public void onLongClick(View view, int position) {
-        // 아이템 롱클릭 이벤트
-        mPresenter.onRecyclerItemLongClick(position);
+    public void addList(ArrayList<RecyclerViewData> list) {
+        mAdapter.setItems(list);
+        mAdapter.notifyDataSetChanged();
     }
 }

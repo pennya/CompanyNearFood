@@ -9,6 +9,7 @@ import com.kh.companyfood.model.login.LoginCallback;
 import com.kh.companyfood.model.login.LoginModel;
 import com.kh.companyfood.ui.login.LoginActivity;
 import com.kh.companyfood.ui.main.MainActivity;
+import com.kh.companyfood.vo.User;
 
 /**
  * Created by teruten on 2017-06-07.
@@ -33,14 +34,15 @@ public class LoginPresenterImpl implements LoginPresenter, LoginCallback {
     }
 
     @Override
-    public void actionJoinUser(String id, String pw, String email) {
-        loginModel.requestSignUp(id, pw, email);
-    }
-
-    @Override
-    public void getNetworkResponse(String text, int status) {
+    public void getNetworkResponse(User user, int status) {
         Log.d(TAG, "LoginPresenterImpl getNetworkResponse");
-        view.showToast(text);
-        view.actionResult(status);
+        //view.showToast(user.id);
+        //view.actionResult(status);
+
+        if(status == Define.SIGNUP_SUCCESS){
+            view.moveMainActivity();
+        }else{
+            view.showToast("fail");
+        }
     }
 }

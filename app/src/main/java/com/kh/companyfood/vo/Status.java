@@ -1,4 +1,4 @@
-package com.kh.companyfood.model;
+package com.kh.companyfood.vo;
 
 /**
  * Created by KIM on 2017-06-12.
