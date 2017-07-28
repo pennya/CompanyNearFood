@@ -22,12 +22,12 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements AdapterPresenter {
 
-
     private ArrayList<RecyclerViewData> mDataList = new ArrayList<>();
 
-
     private Context mContext;
-    private RestaurantPresenter restaurantPresenter;
+
+    private RestaurantPresenter.View mView;
+
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView mImageView;
 
@@ -40,9 +40,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    public RecyclerViewAdapter(Context context, RestaurantPresenter restaurantPresenter) {
+    public RecyclerViewAdapter(Context context, RestaurantPresenter.View view) {
         mContext = context;
-        this.restaurantPresenter = restaurantPresenter;
+        mView = view;
     }
 
 
@@ -60,27 +60,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        
-
         final int ItemPosition = position;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                restaurantPresenter.onRecyclerItemClick(ItemPosition);
+                mView.onRecyclerItemClick(ItemPosition);
             }
         });
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-
-                restaurantPresenter.onRecyclerItemLongClick(ItemPosition);
-
+                mView.onRecyclerItemLongClick(ItemPosition);
                 return false;
             }
         });
-
 
         Glide.with(mContext)
                 .load(mDataList.get(position).mImage)

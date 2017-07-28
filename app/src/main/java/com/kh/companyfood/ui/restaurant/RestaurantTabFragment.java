@@ -57,7 +57,7 @@ public class RestaurantTabFragment extends Fragment implements RestaurantPresent
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         restaurantPresenter = new RestaurantPresenterImpl(this);
-        mAdapter = new RecyclerViewAdapter(getActivity(), restaurantPresenter);
+        mAdapter = new RecyclerViewAdapter(getActivity(), this);
         mRecyclerView.setAdapter(mAdapter);
         restaurantPresenter.loadItems();
 
@@ -73,5 +73,15 @@ public class RestaurantTabFragment extends Fragment implements RestaurantPresent
     public void addList(ArrayList<RecyclerViewData> list) {
         mAdapter.setItems(list);
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRecyclerItemClick(int position) {
+        restaurantPresenter.onRecyclerItemClick(position);
+    }
+
+    @Override
+    public void onRecyclerItemLongClick(int position) {
+        restaurantPresenter.onRecyclerItemLongClick(position);
     }
 }

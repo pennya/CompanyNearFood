@@ -15,22 +15,15 @@ public class RestaurantPresenterImpl implements RestaurantPresenter, RestaurantC
 
     private final RestaurantPresenter.View mView;
 
-    private ArrayList<RecyclerViewData> mDataList;
-
-    private RecyclerViewAdapter mAdapter;
     private RestaurantModel restaurantModel;
 
     public RestaurantPresenterImpl(RestaurantPresenter.View view) {
         mView = view;
-        //mAdapter = adapter;
-        //mDataList = new ArrayList<>();
-
         restaurantModel = new RestaurantModel(this);
     }
 
     @Override
     public void loadItems() {
-
         restaurantModel.requestRestaurantList();
     }
 
