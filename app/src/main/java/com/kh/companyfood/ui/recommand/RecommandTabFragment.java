@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.kh.companyfood.R;
 import com.kh.companyfood.presenter.recommand.RecommandPresenter;
 import com.kh.companyfood.presenter.recommand.RecommandPresenterImpl;
+import com.kh.companyfood.ui.setting.SettingTabFragment;
 
 public class RecommandTabFragment extends Fragment implements RecommandPresenter.View, View.OnClickListener{
 
@@ -70,7 +71,7 @@ public class RecommandTabFragment extends Fragment implements RecommandPresenter
 
             case R.id.button_sample2:
                 SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getContext());
-                boolean notificationKey = SP.getBoolean("notification", false);
+                boolean notificationKey = SP.getBoolean(SettingTabFragment.KEY_PREF_NOTIFICATION, false);
 
                 if( notificationKey )
                     Toast.makeText(getActivity(), "true", Toast.LENGTH_LONG).show();

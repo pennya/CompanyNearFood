@@ -12,6 +12,8 @@
 
 
     <!-- Settings -->
-    <string name="notification">Notifications</string>
-    <string name="version">Version</string>
+    <string name="pref_category_title">About</string>
+    <string name="pref_notification_title">Notifications</string>
+    <string name="pref_version_title">Version</string>
+    <string name="pref_logon_title">Logon</string>
 </resources>

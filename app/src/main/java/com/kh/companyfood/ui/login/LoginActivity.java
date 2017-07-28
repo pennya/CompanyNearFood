@@ -49,8 +49,13 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("test1", "LoginActivity onClick");
-                loginPresenter.actionLogin(editText_id.getText().toString(), editText_pw.getText().toString());
+                //Log.d("test1", "LoginActivity onClick");
+                //loginPresenter.actionLogin(editText_id.getText().toString(), editText_pw.getText().toString());
+                Intent intent = new Intent();
+                intent.putExtra("id", "rlawlgns077");
+                intent.putExtra("password", "123123123");
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
 
