@@ -16,4 +16,8 @@
     <string name="pref_notification_title">Notifications</string>
     <string name="pref_version_title">Version</string>
     <string name="pref_logon_title">Logon</string>
+
+    <!-- Intro -->
+    <string name="title">오늘 뭐 먹지?</string>
+    <string name="description">오늘의 추천 음식점을 받아보세요</string>
 </resources>

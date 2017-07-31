@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="26dp"
+    android:padding="30dp"
     android:background="#FF87CEFA"
     android:orientation="vertical">
 
@@ -13,12 +13,21 @@
         android:textStyle="bold"
         android:textColor="@color/colorPrimary"
         android:textSize="40sp"
-        android:text="Title"/>
+        android:text="@string/title"/>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="fitCenter"
-        android:src="@drawable/chef_2409158_1280"/>
+        android:src="@drawable/sushi_154590__340"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textStyle="normal"
+        android:textColor="@color/colorPrimary"
+        android:textSize="30sp"
+        android:text="@string/description"/>
 
 </LinearLayout>
