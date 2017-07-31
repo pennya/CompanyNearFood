@@ -2,32 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:padding="30dp"
-    android:background="#FF87CEFA"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        android:textSize="40sp"
-        android:text="@string/title"/>
-
+    <!--
+    무료 image 출처 : https://pixabay.com/ko/%EC%97%B0%EC%96%B4-%EC%9D%8C%EC%8B%9D-%ED%98%B8%EB%B0%95-560987/
+    무료 폰트 출처 : http://hangeul.naver.com/2016/nanum
+     -->
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitCenter"
-        android:src="@drawable/sushi_154590__340"/>
-
-    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textStyle="normal"
-        android:textColor="@color/colorPrimary"
-        android:textSize="30sp"
-        android:text="@string/description"/>
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/title"/>
+
 
 </LinearLayout>
