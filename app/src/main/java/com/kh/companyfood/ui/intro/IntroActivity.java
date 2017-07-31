@@ -44,7 +44,6 @@ public class IntroActivity extends Activity implements IntroPresenter.View{
 
     @Override
     public void moveMainActivity() {
-        Log.d(Define.LOG_TAG, "intro moveMainActivity");
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         finish();
@@ -52,7 +51,6 @@ public class IntroActivity extends Activity implements IntroPresenter.View{
 
     @Override
     public void moveLoginActivity() {
-        Log.d(Define.LOG_TAG, "intro moveLoginActivity");
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
         finish();
@@ -60,7 +58,6 @@ public class IntroActivity extends Activity implements IntroPresenter.View{
 
     @Override
     public void showToast() {
-        Log.d(Define.LOG_TAG, "intro showToast");
         Toast.makeText(this, "intro showToast", Toast.LENGTH_SHORT).show();
     }
 
@@ -68,7 +65,6 @@ public class IntroActivity extends Activity implements IntroPresenter.View{
 
         @Override
         public void run() {
-            Log.d(Define.LOG_TAG, "intro DelayRunnable");
             introPresenterImpl.onVersionCheck();
         }
     }

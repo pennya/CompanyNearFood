@@ -33,7 +33,6 @@ public class IntroPresenterImpl implements IntroPresenter, IntroCallback {
             view.moveMainActivity();
         }else{
             view.showToast();
-
         }
     }
 }

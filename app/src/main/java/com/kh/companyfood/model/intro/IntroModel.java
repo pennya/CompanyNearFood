@@ -81,7 +81,6 @@ public class IntroModel {
                     }
 
                     try {
-                        //loginCallback.getNetworkResponse("[Login Fail]\n" + "StatusCode : " + StatusCode + "\n" + "ErrorMsg : " + response.errorBody().string(),Define.RESPONSE_FAILED);
                         introCallback.getNetworkResponse(Define.RESPONSE_FAILED);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -92,7 +91,6 @@ public class IntroModel {
             @Override
             public void onFailure(Call<Version> call, Throwable t) {
                 Log.d(Define.LOG_TAG, "requestLogin onFailure");
-                //loginCallback.getNetworkResponse(t.getMessage(), Define.NETWORK_FAILED);
                 introCallback.getNetworkResponse(Define.NETWORK_FAILED);
             }
         });
