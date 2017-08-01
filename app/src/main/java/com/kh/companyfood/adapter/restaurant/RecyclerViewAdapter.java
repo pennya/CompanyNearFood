@@ -72,7 +72,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public boolean onLongClick(View v) {
                 mView.onRecyclerItemLongClick(ItemPosition);
-                return false;
+                return true;
             }
         });
 
