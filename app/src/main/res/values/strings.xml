@@ -20,4 +20,5 @@
     <!-- Intro -->
     <string name="title">오늘 뭐 먹지?</string>
     <string name="description">오늘의 추천 음식점을 받아보세요</string>
+    <string name="intro_title">What to eat today?</string>
 </resources>
