@@ -3,9 +3,9 @@ package com.kh.companyfood.model.setting;
 import android.util.Log;
 
 import com.kh.companyfood.model.Restaurant;
-import com.kh.companyfood.model.Version;
 import com.kh.companyfood.network.NetworkManager;
 import com.kh.companyfood.network.SettingService;
+import com.kh.companyfood.vo.Version;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,18 +28,15 @@ public class SettingModel {
 
     public void requestVersion () {
         SettingService settingService = NetworkManager.getIntance().getRetrofit(SettingService.class);
-        Call<List<Version>> versions = settingService.getVersions();
-        versions.enqueue(new Callback<List<Version>>() {
+        Call<Version> versions = settingService.getVersions();
+        versions.enqueue(new Callback<Version>() {
             @Override
-            public void onResponse(Call<List<Version>> call, Response<List<Version>> response) {
+            public void onResponse(Call<Version> call, Response<Version> response) {
                 if(response.isSuccessful()) {
-                    List<Version> versionList = response.body();
+                    Version version = response.body();
 
-                    String versionInfo = "";
-                    int versionCount = versionList.size();
-                    versionInfo = versionList.get(versionCount - 1).getVersionName();
-
-                    mSettingCallback.getNetworkResponse(versionInfo, 200);
+                    String versionCode = version.getVersionName();
+                    mSettingCallback.getNetworkResponse(versionCode, 200);
                 } else {
                     int StatusCode = response.code();
                     try {
@@ -52,8 +49,8 @@ public class SettingModel {
             }
 
             @Override
-            public void onFailure(Call<List<Version>> call, Throwable t) {
-
+            public void onFailure(Call<Version> call, Throwable t) {
+                Log.i("KJH", " Error Message : " + t.getMessage());
             }
         });
     }

@@ -1,6 +1,7 @@
 package com.kh.companyfood.network;
 
-import com.kh.companyfood.model.Version;
+
+import com.kh.companyfood.vo.Version;
 
 import java.util.List;
 
@@ -14,6 +15,6 @@ import retrofit2.http.GET;
 public interface SettingService {
 
     @GET("/api/versions/")
-    Call<List<Version>> getVersions();
+    Call<Version> getVersions();
 
 }

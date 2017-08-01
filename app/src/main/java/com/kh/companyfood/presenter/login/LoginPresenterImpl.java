@@ -36,8 +36,6 @@ public class LoginPresenterImpl implements LoginPresenter, LoginCallback {
     @Override
     public void getNetworkResponse(User user, int status) {
         Log.d(TAG, "LoginPresenterImpl getNetworkResponse");
-        //view.showToast(user.id);
-        //view.actionResult(status);
 
         if(status == Define.SIGNUP_SUCCESS){
             view.moveMainActivity();

@@ -13,10 +13,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.kh.companyfood.R;
+import com.kh.companyfood.Share.SharedUtils;
 import com.kh.companyfood.define.Define;
 import com.kh.companyfood.presenter.login.LoginPresenter;
 import com.kh.companyfood.presenter.login.LoginPresenterImpl;
 import com.kh.companyfood.ui.main.MainActivity;
+import com.kh.companyfood.ui.setting.SettingTabFragment;
 import com.kh.companyfood.ui.signUp.SignUpActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginPresenter.View, View.OnClickListener{
@@ -40,6 +42,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         editTextPw = (EditText)findViewById(R.id.editText_pw);
 
         button = (Button) findViewById(R.id.button_login);
+        button.setOnClickListener(this);
 
         loginPresenter = new LoginPresenterImpl(this, this);
     }
@@ -73,7 +76,10 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.button_login:
-                loginPresenter.actionLogin(editTextId.getText().toString(), editTextPw.getText().toString());
+                //loginPresenter.actionLogin(editTextId.getText().toString(), editTextPw.getText().toString());
+                SharedUtils.setCurrentLogonId(this, editTextId.getText().toString());
+                setResult(SettingTabFragment.LOGIN_ACTIVITY_RESULT_OK);
+                finish();
                 break;
             case R.id.fab:
                 Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
