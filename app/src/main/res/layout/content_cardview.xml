@@ -1,35 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="#ddd"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
-        android:layout_marginBottom="16dp"
+        android:layout_margin="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        card_view:cardCornerRadius="4dp">
+        android:layout_height="380dp"
+        card_view:cardCornerRadius="4dp"
+        card_view:contentPadding="10dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/image_sample"
-                android:scaleType="fitXY"
+                android:id="@+id/card_view_image"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="250dp"
+                android:layout_alignParentTop="true"
+                android:scaleType="centerCrop"/>
 
             <TextView
-                android:id="@+id/text_sample"
-                android:layout_width="match_parent"
+                android:id="@+id/card_view_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center|left"
-                android:padding="10dp" />
+                android:layout_below="@+id/card_view_image"
+                android:layout_margin="5dp"
+                android:textColor="#222"
+                android:textStyle="bold"
+                android:textSize="22dp"
+                />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/card_view_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_view_title"
+                android:layout_margin="5dp"
+                android:textColor="#666"
+                android:textSize="14dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/card_view_description">
+
+                <TextView
+                    android:id="@+id/card_view_star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="5dp"
+                    android:textColor="#666"
+                    android:text="star"/>
+
+                <TextView
+                    android:id="@+id/card_view_star_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/card_view_star"
+                    android:layout_margin="5dp"
+                    android:textColor="#666"
+                    />
+
+                <TextView
+                    android:id="@+id/card_view_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/card_view_star_rating"
+                    android:layout_margin="5dp"
+                    android:textColor="#666"
+                    android:text="comment"/>
+
+                <TextView
+                    android:id="@+id/card_view_comment_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/card_view_comment"
+                    android:layout_margin="5dp"
+                    android:textColor="#666"
+                    />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
 

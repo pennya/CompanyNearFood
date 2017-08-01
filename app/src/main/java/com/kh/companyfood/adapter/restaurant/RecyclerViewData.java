@@ -11,10 +11,19 @@ public class RecyclerViewData {
 
     public String mImage;
 
-    public String mText;
+    public String mTitle;
 
-    public RecyclerViewData(String image, String text) {
-        mImage = image;
-        mText = text;
+    public String mDescription;
+
+    public int mStarRating;
+
+    public int mCommentCount;
+
+    public RecyclerViewData(String mImage, String mTitle, String mDescription, int mStarRating, int mCommentCount) {
+        this.mImage = mImage;
+        this.mTitle = mTitle;
+        this.mDescription = mDescription;
+        this.mStarRating = mStarRating;
+        this.mCommentCount = mCommentCount;
     }
 }
