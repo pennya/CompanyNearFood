@@ -6,6 +6,8 @@ package com.kh.companyfood.presenter.intro;
 
 public interface IntroPresenter {
 
+    void actionLogin(String id, String pw);
+
     void onVersionCheck();
 
     interface View{

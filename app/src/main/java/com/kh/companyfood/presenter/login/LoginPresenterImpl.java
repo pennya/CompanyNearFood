@@ -1,14 +1,11 @@
 package com.kh.companyfood.presenter.login;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.util.Log;
 
 import com.kh.companyfood.define.Define;
 import com.kh.companyfood.model.login.LoginCallback;
 import com.kh.companyfood.model.login.LoginModel;
-import com.kh.companyfood.ui.login.LoginActivity;
-import com.kh.companyfood.ui.main.MainActivity;
 import com.kh.companyfood.vo.User;
 
 /**
@@ -37,10 +34,10 @@ public class LoginPresenterImpl implements LoginPresenter, LoginCallback {
     public void getNetworkResponse(User user, int status) {
         Log.d(TAG, "LoginPresenterImpl getNetworkResponse");
 
-        if(status == Define.SIGNUP_SUCCESS){
+        if(status == Define.LOGIN_SUCCESS){
             view.moveMainActivity();
         }else{
             view.showToast("fail");
         }
     }
-}
+    }

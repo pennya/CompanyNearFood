@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.kh.companyfood.R;
+import com.kh.companyfood.Share.SharedUtils;
 import com.kh.companyfood.define.Define;
 import com.kh.companyfood.presenter.intro.IntroPresenter;
 import com.kh.companyfood.presenter.intro.IntroPresenterImpl;
@@ -66,6 +67,11 @@ public class IntroActivity extends Activity implements IntroPresenter.View{
         @Override
         public void run() {
             introPresenterImpl.onVersionCheck();
+
+            boolean autoLogin = SharedUtils.getAutoLoginState(getApplicationContext());
+            if(autoLogin)
+                introPresenterImpl.actionLogin(SharedUtils.getAutoLoginId(getApplicationContext()),
+                                                    SharedUtils.getAutoLoginPassword(getApplicationContext()));
         }
     }
 }

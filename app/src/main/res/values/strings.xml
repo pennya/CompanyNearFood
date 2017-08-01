@@ -16,6 +16,7 @@
     <string name="pref_notification_title">Notifications</string>
     <string name="pref_version_title">Version</string>
     <string name="pref_logon_title">Logon</string>
+    <string name="pref_autologin">AutoLogin</string>
 
     <!-- Intro -->
     <string name="intro_title">What to eat today?</string>

@@ -12,6 +12,13 @@
             android:title="@string/pref_notification_title"
             android:defaultValue="false"
             />
+
+        <CheckBoxPreference
+            android:key="pref_autologin"
+            android:title="@string/pref_autologin"
+            android:checked="false"
+            />
+
         <PreferenceScreen
             android:key="pref_logon"
             android:title="@string/pref_logon_title"

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kh.companyfood.R;
+import com.kh.companyfood.Share.SharedUtils;
 import com.kh.companyfood.presenter.recommand.RecommandPresenter;
 import com.kh.companyfood.presenter.recommand.RecommandPresenterImpl;
 import com.kh.companyfood.ui.setting.SettingTabFragment;

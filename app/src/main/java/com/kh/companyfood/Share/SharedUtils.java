@@ -2,6 +2,7 @@ package com.kh.companyfood.Share;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import com.kh.companyfood.ui.setting.SettingTabFragment;
 
@@ -11,67 +12,55 @@ import com.kh.companyfood.ui.setting.SettingTabFragment;
 
 public class SharedUtils {
 
-    public static boolean loginCheck(Context context) {
+    public static SharedPreferences getSharedPref(Context context) {
         SharedPreferences sharedPreferences
                 = context.getSharedPreferences(SettingTabFragment.SETTING_PREF_USER, Context.MODE_PRIVATE);
 
-        return sharedPreferences.getBoolean(SettingTabFragment.IS_LOGIN, false);
+        return sharedPreferences;
+    }
+
+    public static boolean getLoginState(Context context) {
+        return getSharedPref(context).getBoolean(SettingTabFragment.IS_LOGIN, false);
     }
 
     public static void setLoginState(Context context, boolean state) {
-        SharedPreferences sharedPreferences
-                = context.getSharedPreferences(SettingTabFragment.SETTING_PREF_USER, Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = getSharedPref(context).edit();
         editor.putBoolean(SettingTabFragment.IS_LOGIN, state);
         editor.commit();
     }
 
-    public static String getCurrentLogonId(Context context) {
-        SharedPreferences sharedPreferences
-                = context.getSharedPreferences(SettingTabFragment.SETTING_PREF_USER, Context.MODE_PRIVATE);
-
-        return sharedPreferences.getString(SettingTabFragment.CURRENT_LOGON_ID, "");
+    public static String getCurrentLoginId(Context context) {
+         return getSharedPref(context).getString(SettingTabFragment.CURRENT_LOGIN_ID, "");
     }
 
-    public static void setCurrentLogonId(Context context, String id) {
-        SharedPreferences sharedPreferences
-                = context.getSharedPreferences(SettingTabFragment.SETTING_PREF_USER, Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(SettingTabFragment.CURRENT_LOGON_ID, id);
+    public static void setCurrentLoginId(Context context, String id) {
+        SharedPreferences.Editor editor = getSharedPref(context).edit();
+        editor.putString(SettingTabFragment.CURRENT_LOGIN_ID, id);
         editor.commit();
     }
 
-    public static String getSavedId(Context context) {
-        SharedPreferences sharedPreferences
-                = context.getSharedPreferences(SettingTabFragment.SETTING_PREF_USER, Context.MODE_PRIVATE);
-
-        return sharedPreferences.getString(SettingTabFragment.LOGON_ID, "");
+    public static String getAutoLoginId(Context context) {
+        return getSharedPref(context).getString(SettingTabFragment.LOGIN_ID, "");
     }
 
-    public static String getSavedPassword(Context context) {
-        SharedPreferences sharedPreferences
-                = context.getSharedPreferences(SettingTabFragment.SETTING_PREF_USER, Context.MODE_PRIVATE);
-
-        return sharedPreferences.getString(SettingTabFragment.LOGON_PASSWORD, "");
+    public static String getAutoLoginPassword(Context context) {
+        return getSharedPref(context).getString(SettingTabFragment.LOGIN_PASSWORD, "");
     }
 
     public static void setAutoLoginId(Context context, String id) {
-        SharedPreferences sharedPreferences
-                = context.getSharedPreferences(SettingTabFragment.SETTING_PREF_USER, Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(SettingTabFragment.LOGON_ID, id);
+        SharedPreferences.Editor editor = getSharedPref(context).edit();
+        editor.putString(SettingTabFragment.LOGIN_ID, id);
         editor.commit();
     }
 
     public static void setAutoLoginPassword(Context context, String password) {
-        SharedPreferences sharedPreferences
-                = context.getSharedPreferences(SettingTabFragment.SETTING_PREF_USER, Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(SettingTabFragment.LOGON_PASSWORD, password);
+        SharedPreferences.Editor editor = getSharedPref(context).edit();
+        editor.putString(SettingTabFragment.LOGIN_PASSWORD, password);
         editor.commit();
+    }
+
+    public static boolean getAutoLoginState(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.getBoolean(SettingTabFragment.KEY_PREF_AUTOLOGIN, false);
     }
 }

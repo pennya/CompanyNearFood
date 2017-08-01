@@ -23,6 +23,11 @@ public class IntroPresenterImpl implements IntroPresenter, IntroCallback {
     }
 
     @Override
+    public void actionLogin(String id, String pw) {
+        introModel.requestLogin(id, pw);
+    }
+
+    @Override
     public void onVersionCheck() {
         introModel.requestVersionCheck();
     }

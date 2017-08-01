@@ -3,7 +3,6 @@ package com.kh.companyfood.ui.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -27,6 +26,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     private Button button;
     private EditText editTextId;
     private EditText editTextPw;
+    private int key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,10 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+        key = intent.getIntExtra("KEY", 0);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(this);
@@ -76,16 +80,31 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.button_login:
-                //loginPresenter.actionLogin(editTextId.getText().toString(), editTextPw.getText().toString());
-                SharedUtils.setCurrentLogonId(this, editTextId.getText().toString());
-                setResult(SettingTabFragment.LOGIN_ACTIVITY_RESULT_OK);
-                finish();
+                if ( key == SettingTabFragment.SETTING_TAB_FRAGMENT) {
+                    savePref();
+                } else {
+                    loginPresenter.actionLogin(editTextId.getText().toString(), editTextPw.getText().toString());
+                }
+
                 break;
+
             case R.id.fab:
                 Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
                 startActivity(intent);
                 finish();
                 break;
         }
+    }
+
+    private void savePref() {
+        boolean autoLogin = SharedUtils.getAutoLoginState(this);
+        if (autoLogin) {
+            SharedUtils.setAutoLoginId(this, editTextId.getText().toString());
+            SharedUtils.setAutoLoginPassword(this, editTextPw.getText().toString());
+        }
+
+        SharedUtils.setCurrentLoginId(this, editTextId.getText().toString());
+        setResult(SettingTabFragment.LOGIN_ACTIVITY_RESULT_OK);
+        finish();
     }
 }

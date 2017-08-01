@@ -19,15 +19,15 @@ public class SettingTabFragment extends PreferenceFragmentCompat
 
     public static final int SETTING_TAB_FRAGMENT = 10542;
     public static final int LOGIN_ACTIVITY_RESULT_OK = 1;
-    public static final String LOGON_ID = "logon_id";
-    public static final String LOGON_PASSWORD = "logon_password";
-    public static final String CURRENT_LOGON_ID = "current_logon_id";
+    public static final String LOGIN_ID = "login_id";
+    public static final String LOGIN_PASSWORD = "login_password";
+    public static final String CURRENT_LOGIN_ID = "current_login_id";
     public static final String IS_LOGIN = "is_login";
-    public static final String IS_AUTO_LOGIN = "is_auto_login";
     public static final String SETTING_PREF_USER = "pref_user";
     public static final String KEY_PREF_LOGON = "pref_logon";
     public static final String KEY_PREF_VERSION = "pref_version";
     public static final String KEY_PREF_NOTIFICATION = "pref_notification";
+    public static final String KEY_PREF_AUTOLOGIN = "pref_autologin";
 
     public static final String TITLE_PREF_LOGIN = "Log in";
     public static final String TITLE_PREF_LOGOUT = "Log out";
@@ -44,12 +44,12 @@ public class SettingTabFragment extends PreferenceFragmentCompat
 
         mSettingPresenter.loadItems();
 
-        boolean prefLogonCurrentState = SharedUtils.loginCheck(getContext());
+        boolean prefLogonCurrentState = SharedUtils.getLoginState(getContext());
 
         Preference PrefLogon = findPreference(KEY_PREF_LOGON);
         if(prefLogonCurrentState) {
             PrefLogon.setTitle(TITLE_PREF_LOGOUT);
-            PrefLogon.setSummary(SharedUtils.getCurrentLogonId(getContext()));
+            PrefLogon.setSummary(SharedUtils.getCurrentLoginId(getContext()));
         } else {
             PrefLogon.setTitle(TITLE_PREF_LOGIN);
         }
@@ -71,14 +71,15 @@ public class SettingTabFragment extends PreferenceFragmentCompat
     public boolean onPreferenceClick(Preference preference) {
         switch(preference.getKey()) {
             case KEY_PREF_LOGON:
-                boolean prefLogonCurrentState = SharedUtils.loginCheck(getContext());
+                boolean prefLogonCurrentState = SharedUtils.getLoginState(getContext());
                 if(prefLogonCurrentState) {
                     SharedUtils.setLoginState(getContext(), false);
-                    SharedUtils.setCurrentLogonId(getContext(), "");
+                    SharedUtils.setCurrentLoginId(getContext(), "");
                     preference.setTitle(TITLE_PREF_LOGIN);
                     preference.setSummary("");
                 } else {
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.putExtra("KEY", SETTING_TAB_FRAGMENT);
                     startActivityForResult(intent, SETTING_TAB_FRAGMENT);
                 }
 
@@ -98,7 +99,7 @@ public class SettingTabFragment extends PreferenceFragmentCompat
             Preference logonPref = findPreference(KEY_PREF_LOGON);
             logonPref.setTitle(TITLE_PREF_LOGOUT);
 
-            String id = SharedUtils.getCurrentLogonId(getContext());
+            String id = SharedUtils.getCurrentLoginId(getContext());
             logonPref.setSummary(id);
         }
     }
