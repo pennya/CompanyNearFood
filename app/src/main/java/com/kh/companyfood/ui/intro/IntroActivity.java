@@ -14,6 +14,7 @@ import com.kh.companyfood.presenter.intro.IntroPresenter;
 import com.kh.companyfood.presenter.intro.IntroPresenterImpl;
 import com.kh.companyfood.ui.login.LoginActivity;
 import com.kh.companyfood.ui.main.MainActivity;
+import com.kh.companyfood.ui.setting.SettingTabFragment;
 
 public class IntroActivity extends Activity implements IntroPresenter.View{
 
@@ -68,10 +69,10 @@ public class IntroActivity extends Activity implements IntroPresenter.View{
         public void run() {
             introPresenterImpl.onVersionCheck();
 
-            boolean autoLogin = SharedUtils.getAutoLoginState(getApplicationContext());
+            boolean autoLogin = SharedUtils.getBooleanValue(getApplicationContext(), SettingTabFragment.KEY_PREF_AUTOLOGIN);
             if(autoLogin)
-                introPresenterImpl.actionLogin(SharedUtils.getAutoLoginId(getApplicationContext()),
-                                                    SharedUtils.getAutoLoginPassword(getApplicationContext()));
+                introPresenterImpl.actionLogin(SharedUtils.getStringValue(getApplicationContext(), SettingTabFragment.LOGIN_ID),
+                                                    SharedUtils.getStringValue(getApplicationContext(), SettingTabFragment.LOGIN_PASSWORD));
         }
     }
 }

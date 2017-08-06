@@ -97,13 +97,13 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     }
 
     private void savePref() {
-        boolean autoLogin = SharedUtils.getAutoLoginState(this);
+        boolean autoLogin = SharedUtils.getBooleanValue(this, SettingTabFragment.KEY_PREF_AUTOLOGIN);
         if (autoLogin) {
-            SharedUtils.setAutoLoginId(this, editTextId.getText().toString());
-            SharedUtils.setAutoLoginPassword(this, editTextPw.getText().toString());
+            SharedUtils.setStringValue(this, SettingTabFragment.LOGIN_ID, editTextId.getText().toString());
+            SharedUtils.setStringValue(this, SettingTabFragment.LOGIN_PASSWORD, editTextPw.getText().toString());
         }
 
-        SharedUtils.setCurrentLoginId(this, editTextId.getText().toString());
+        SharedUtils.setStringValue(this, SettingTabFragment.CURRENT_LOGIN_ID, editTextId.getText().toString());
         setResult(SettingTabFragment.LOGIN_ACTIVITY_RESULT_OK);
         finish();
     }

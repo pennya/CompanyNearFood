@@ -1,10 +1,15 @@
 package com.kh.companyfood.model.setting;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
+import com.kh.companyfood.Share.SharedUtils;
 import com.kh.companyfood.model.Restaurant;
 import com.kh.companyfood.network.NetworkManager;
 import com.kh.companyfood.network.SettingService;
+import com.kh.companyfood.ui.setting.SettingTabFragment;
 import com.kh.companyfood.vo.Version;
 
 import java.io.IOException;
@@ -22,36 +27,39 @@ public class SettingModel {
 
     private SettingCallback mSettingCallback;
 
-    public SettingModel(SettingCallback mSettingCallback) {
-        this.mSettingCallback = mSettingCallback;
+    private Context mContext;
+
+    public SettingModel(Context context, SettingCallback settingCallback) {
+        this.mContext = context;
+        this.mSettingCallback = settingCallback;
     }
 
     public void requestVersion () {
-        SettingService settingService = NetworkManager.getIntance().getRetrofit(SettingService.class);
-        Call<Version> versions = settingService.getVersions();
-        versions.enqueue(new Callback<Version>() {
-            @Override
-            public void onResponse(Call<Version> call, Response<Version> response) {
-                if(response.isSuccessful()) {
-                    Version version = response.body();
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 
-                    String versionCode = version.getVersionName();
-                    mSettingCallback.getNetworkResponse(versionCode, 200);
-                } else {
-                    int StatusCode = response.code();
-                    try {
-                        mSettingCallback.getNetworkResponse("Failed", StatusCode);
-                        Log.i("KJH", "Status Code : " + StatusCode + " Error Message : " + response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+        String versionCode = packageInfo.versionName;
+        mSettingCallback.getVersionResponse(versionCode);
+    }
 
-            @Override
-            public void onFailure(Call<Version> call, Throwable t) {
-                Log.i("KJH", " Error Message : " + t.getMessage());
-            }
-        });
+    public void requestCurrentLoginId() {
+        boolean prefLogonCurrentState
+                = SharedUtils.getBooleanValue(mContext, SettingTabFragment.IS_LOGIN);
+
+        if(prefLogonCurrentState) {
+            mSettingCallback.getCurrentLoginIdResponse(
+                    SharedUtils.getStringValue(mContext, SettingTabFragment.CURRENT_LOGIN_ID)
+            );
+        }
+    }
+
+    public void requestLogout() {
+        SharedUtils.setBooleanValue(mContext, SettingTabFragment.IS_LOGIN, false);
+        SharedUtils.setStringValue(mContext, SettingTabFragment.CURRENT_LOGIN_ID, "");
+        mSettingCallback.getLogoutResponse("");
     }
 }

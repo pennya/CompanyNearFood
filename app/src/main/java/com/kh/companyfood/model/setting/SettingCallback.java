@@ -6,6 +6,10 @@ package com.kh.companyfood.model.setting;
 
 public interface SettingCallback {
 
-    void getNetworkResponse(String text, int status);
+    void getVersionResponse(String text);
+
+    void getCurrentLoginIdResponse(String text);
+
+    void getLogoutResponse(String text);
 
 }

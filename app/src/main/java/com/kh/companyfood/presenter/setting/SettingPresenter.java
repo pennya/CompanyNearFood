@@ -6,11 +6,18 @@ package com.kh.companyfood.presenter.setting;
 
 public interface SettingPresenter {
 
-    void loadItems();
+    void loadVersion();
+
+    void loadCurrentLoginId();
+
+    void logout();
 
     interface View  {
 
-        void getNetworkResponse(String text);
+        void setVersion(String text);
 
+        void setCurrentLoginId(String text);
+
+        void moveLoginActivity();
     }
 }

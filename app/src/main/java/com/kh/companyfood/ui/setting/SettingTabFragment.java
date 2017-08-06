@@ -23,38 +23,30 @@ public class SettingTabFragment extends PreferenceFragmentCompat
     public static final String LOGIN_PASSWORD = "login_password";
     public static final String CURRENT_LOGIN_ID = "current_login_id";
     public static final String IS_LOGIN = "is_login";
-    public static final String SETTING_PREF_USER = "pref_user";
     public static final String KEY_PREF_LOGON = "pref_logon";
     public static final String KEY_PREF_VERSION = "pref_version";
     public static final String KEY_PREF_NOTIFICATION = "pref_notification";
     public static final String KEY_PREF_AUTOLOGIN = "pref_autologin";
 
-    public static final String TITLE_PREF_LOGIN = "Log in";
-    public static final String TITLE_PREF_LOGOUT = "Log out";
-
     private SettingPresenterImpl mSettingPresenter;
 
+    private Preference PrefLogon;
+
     public SettingTabFragment() {
-        mSettingPresenter = new SettingPresenterImpl(this);
+
     }
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
 
-        mSettingPresenter.loadItems();
+        mSettingPresenter = new SettingPresenterImpl(getActivity(), this);
+        mSettingPresenter.loadVersion();
 
-        boolean prefLogonCurrentState = SharedUtils.getLoginState(getContext());
-
-        Preference PrefLogon = findPreference(KEY_PREF_LOGON);
-        if(prefLogonCurrentState) {
-            PrefLogon.setTitle(TITLE_PREF_LOGOUT);
-            PrefLogon.setSummary(SharedUtils.getCurrentLoginId(getContext()));
-        } else {
-            PrefLogon.setTitle(TITLE_PREF_LOGIN);
-        }
-
+        PrefLogon = findPreference(KEY_PREF_LOGON);
         PrefLogon.setOnPreferenceClickListener(this);
+
+        mSettingPresenter.loadCurrentLoginId();
     }
 
     public static SettingTabFragment newInstance() {
@@ -62,27 +54,10 @@ public class SettingTabFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void getNetworkResponse(String text) {
-        Preference versionPref = findPreference(KEY_PREF_VERSION);
-        versionPref.setSummary(text);
-    }
-
-    @Override
     public boolean onPreferenceClick(Preference preference) {
         switch(preference.getKey()) {
             case KEY_PREF_LOGON:
-                boolean prefLogonCurrentState = SharedUtils.getLoginState(getContext());
-                if(prefLogonCurrentState) {
-                    SharedUtils.setLoginState(getContext(), false);
-                    SharedUtils.setCurrentLoginId(getContext(), "");
-                    preference.setTitle(TITLE_PREF_LOGIN);
-                    preference.setSummary("");
-                } else {
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    intent.putExtra("KEY", SETTING_TAB_FRAGMENT);
-                    startActivityForResult(intent, SETTING_TAB_FRAGMENT);
-                }
-
+                mSettingPresenter.logout();
                 break;
         }
 
@@ -90,17 +65,20 @@ public class SettingTabFragment extends PreferenceFragmentCompat
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void setVersion(String text) {
+        Preference versionPref = findPreference(KEY_PREF_VERSION);
+        versionPref.setSummary(text);
+    }
 
-        super.onActivityResult(requestCode, resultCode, data);
+    @Override
+    public void setCurrentLoginId(String text) {
+        PrefLogon.setSummary(text);
+    }
 
-        if( resultCode == LOGIN_ACTIVITY_RESULT_OK && requestCode == SETTING_TAB_FRAGMENT) {
-            SharedUtils.setLoginState(getContext(), true);
-            Preference logonPref = findPreference(KEY_PREF_LOGON);
-            logonPref.setTitle(TITLE_PREF_LOGOUT);
-
-            String id = SharedUtils.getCurrentLoginId(getContext());
-            logonPref.setSummary(id);
-        }
+    @Override
+    public void moveLoginActivity() {
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 }
