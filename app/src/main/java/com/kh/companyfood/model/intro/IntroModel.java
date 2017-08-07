@@ -89,45 +89,5 @@ public class IntroModel {
                 introCallback.getNetworkResponse(Define.NETWORK_FAILED);
             }
         });
-
     }
-
-    public void requestLogin(String id, String pw){
-        UserService userService = NetworkManager.getIntance().getRetrofit(UserService.class);
-
-        Call<User> LoginCall = userService.loginUser(id, pw);
-        LoginCall.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if(response.isSuccessful()) {
-                    User user = response.body();
-                    Log.d("TEST", user.getId());
-
-                    //introCallback.getNetworkResponse(Define.LOGIN_SUCCESS);
-                } else {
-                    int StatusCode = response.code();
-
-                    Converter<ResponseBody, APIError> responseBodyObjectConverter = NetworkManager.retrofit.responseBodyConverter(APIError.class, new Annotation[0]);
-                    APIError convert = null;
-                    try {
-                        convert = responseBodyObjectConverter.convert(response.errorBody());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    try {
-                        introCallback.getNetworkResponse(Define.LOGIN_FAILED);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                introCallback.getNetworkResponse(Define.LOGIN_FAILED);
-            }
-        });
-    }
-
 }

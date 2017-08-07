@@ -68,11 +68,6 @@ public class IntroActivity extends Activity implements IntroPresenter.View{
         @Override
         public void run() {
             introPresenterImpl.onVersionCheck();
-
-            boolean autoLogin = SharedUtils.getBooleanValue(getApplicationContext(), SettingTabFragment.KEY_PREF_AUTOLOGIN);
-            if(autoLogin)
-                introPresenterImpl.actionLogin(SharedUtils.getStringValue(getApplicationContext(), SettingTabFragment.LOGIN_ID),
-                                                    SharedUtils.getStringValue(getApplicationContext(), SettingTabFragment.LOGIN_PASSWORD));
         }
     }
 }

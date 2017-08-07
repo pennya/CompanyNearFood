@@ -2,9 +2,11 @@ package com.kh.companyfood.presenter.intro;
 
 import android.content.Context;
 
+import com.kh.companyfood.Share.SharedUtils;
 import com.kh.companyfood.define.Define;
 import com.kh.companyfood.model.intro.IntroCallback;
 import com.kh.companyfood.model.intro.IntroModel;
+import com.kh.companyfood.ui.setting.SettingTabFragment;
 
 import java.lang.ref.PhantomReference;
 
@@ -16,15 +18,12 @@ public class IntroPresenterImpl implements IntroPresenter, IntroCallback {
 
     private IntroPresenter.View view;
     private IntroModel introModel;
+    private Context mContext;
 
     public IntroPresenterImpl(Context context, IntroPresenter.View view){
         this.view = view;
+        mContext = context;
         introModel = new IntroModel(context, this);
-    }
-
-    @Override
-    public void actionLogin(String id, String pw) {
-        introModel.requestLogin(id, pw);
     }
 
     @Override
@@ -35,7 +34,11 @@ public class IntroPresenterImpl implements IntroPresenter, IntroCallback {
     @Override
     public void getNetworkResponse(int status) {
         if(status == Define.SUCCESS){
-            view.moveMainActivity();
+            boolean isLogin = SharedUtils.getBooleanValue(mContext, SettingTabFragment.IS_LOGIN);
+            if(isLogin)
+                view.moveMainActivity();
+            else
+                view.moveLoginActivity();
         }else{
             view.showToast();
         }

@@ -3,9 +3,11 @@ package com.kh.companyfood.presenter.login;
 import android.app.Activity;
 import android.util.Log;
 
+import com.kh.companyfood.Share.SharedUtils;
 import com.kh.companyfood.define.Define;
 import com.kh.companyfood.model.login.LoginCallback;
 import com.kh.companyfood.model.login.LoginModel;
+import com.kh.companyfood.ui.setting.SettingTabFragment;
 import com.kh.companyfood.vo.User;
 
 /**
@@ -21,7 +23,7 @@ public class LoginPresenterImpl implements LoginPresenter, LoginCallback {
     public LoginPresenterImpl(Activity activity, LoginPresenter.View view){
         this.activity = activity;
         this.view = view;
-        this.loginModel = new LoginModel(this);
+        this.loginModel = new LoginModel(activity, this);
     }
 
     @Override
@@ -40,4 +42,4 @@ public class LoginPresenterImpl implements LoginPresenter, LoginCallback {
             view.showToast("fail");
         }
     }
-    }
+}

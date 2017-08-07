@@ -26,7 +26,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     private Button button;
     private EditText editTextId;
     private EditText editTextPw;
-    private int key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +33,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        Intent intent = getIntent();
-        key = intent.getIntExtra("KEY", 0);
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(this);
@@ -80,12 +75,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.button_login:
-                if ( key == SettingTabFragment.SETTING_TAB_FRAGMENT) {
-                    savePref();
-                } else {
-                    loginPresenter.actionLogin(editTextId.getText().toString(), editTextPw.getText().toString());
-                }
-
+                loginPresenter.actionLogin(editTextId.getText().toString(), editTextPw.getText().toString());
                 break;
 
             case R.id.fab:
@@ -94,17 +84,5 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
                 finish();
                 break;
         }
-    }
-
-    private void savePref() {
-        boolean autoLogin = SharedUtils.getBooleanValue(this, SettingTabFragment.KEY_PREF_AUTOLOGIN);
-        if (autoLogin) {
-            SharedUtils.setStringValue(this, SettingTabFragment.LOGIN_ID, editTextId.getText().toString());
-            SharedUtils.setStringValue(this, SettingTabFragment.LOGIN_PASSWORD, editTextPw.getText().toString());
-        }
-
-        SharedUtils.setStringValue(this, SettingTabFragment.CURRENT_LOGIN_ID, editTextId.getText().toString());
-        setResult(SettingTabFragment.LOGIN_ACTIVITY_RESULT_OK);
-        finish();
     }
 }

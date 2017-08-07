@@ -1,8 +1,11 @@
 package com.kh.companyfood.model.login;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.kh.companyfood.Share.SharedUtils;
 import com.kh.companyfood.define.Define;
+import com.kh.companyfood.ui.setting.SettingTabFragment;
 import com.kh.companyfood.vo.APIError;
 import com.kh.companyfood.vo.User;
 import com.kh.companyfood.network.UserService;
@@ -24,8 +27,11 @@ import retrofit2.Response;
 public class LoginModel {
     private LoginCallback mLoginCallback;
 
-    public LoginModel(LoginCallback loginCallback){
-        this.mLoginCallback = loginCallback;
+    private Context mContext;
+
+    public LoginModel(Context context, LoginCallback loginCallback){
+        mContext = context;
+        mLoginCallback = loginCallback;
     }
 
     public void requestLogin(String id, String pw){
@@ -40,7 +46,9 @@ public class LoginModel {
                 // 응답 성공
                 if(response.isSuccessful()) {
                     // 로그인 성공
-                    mLoginCallback.getNetworkResponse(response.body(), Define.LOGIN_SUCCESS);
+                    User user = response.body();
+                    savePref(user.getId(), user.getPassword());
+                    mLoginCallback.getNetworkResponse(user, Define.LOGIN_SUCCESS);
                 } else {
                     // 응답 실패
                     int StatusCode = response.code();
@@ -65,12 +73,18 @@ public class LoginModel {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.d(Define.LOG_TAG, "requestLogin onFailure");
-                //loginCallback.getNetworkResponse(t.getMessage(), Define.NETWORK_FAILED);
                 mLoginCallback.getNetworkResponse(null, Define.LOGIN_FAILED);
             }
         });
     }
 
+    private void savePref(String id, String pw) {
+        SharedUtils.setStringValue(mContext, SettingTabFragment.LOGIN_ID, id);
+        SharedUtils.setStringValue(mContext, SettingTabFragment.LOGIN_PASSWORD, pw);
+
+        SharedUtils.setBooleanValue(mContext, SettingTabFragment.IS_LOGIN, true);
+        SharedUtils.setStringValue(mContext, SettingTabFragment.CURRENT_LOGIN_ID, id);
+    }
 
 
 }

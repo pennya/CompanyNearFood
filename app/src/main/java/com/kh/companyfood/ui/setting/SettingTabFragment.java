@@ -17,8 +17,6 @@ import com.kh.companyfood.ui.login.LoginActivity;
 public class SettingTabFragment extends PreferenceFragmentCompat
         implements SettingPresenter.View, Preference.OnPreferenceClickListener {
 
-    public static final int SETTING_TAB_FRAGMENT = 10542;
-    public static final int LOGIN_ACTIVITY_RESULT_OK = 1;
     public static final String LOGIN_ID = "login_id";
     public static final String LOGIN_PASSWORD = "login_password";
     public static final String CURRENT_LOGIN_ID = "current_login_id";
@@ -26,7 +24,6 @@ public class SettingTabFragment extends PreferenceFragmentCompat
     public static final String KEY_PREF_LOGON = "pref_logon";
     public static final String KEY_PREF_VERSION = "pref_version";
     public static final String KEY_PREF_NOTIFICATION = "pref_notification";
-    public static final String KEY_PREF_AUTOLOGIN = "pref_autologin";
 
     private SettingPresenterImpl mSettingPresenter;
 

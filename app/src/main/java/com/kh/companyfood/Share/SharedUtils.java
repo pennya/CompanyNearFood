@@ -48,4 +48,10 @@ public class SharedUtils {
         editor.putString(key, value);
         editor.commit();
     }
+
+    public static void prefClear(Context context) {
+        SharedPreferences.Editor editor = getSharedPref(context).edit();
+        editor.clear();
+        editor.commit();
+    }
 }
