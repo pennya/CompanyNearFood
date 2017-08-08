@@ -20,5 +20,6 @@
 
     <!-- Intro -->
     <string name="intro_title">What to eat today?</string>
+    <string name="title_activity_restaurant_detail">RestaurantDetailActivity</string>
 
 </resources>

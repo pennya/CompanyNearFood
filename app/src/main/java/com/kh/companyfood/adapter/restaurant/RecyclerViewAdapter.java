@@ -33,19 +33,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public TextView mTitle;
 
-        public TextView mDescription;
-
         public TextView mStarRating;
-
-        public TextView mCommentCount;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mImageView = (ImageView)itemView.findViewById(R.id.card_view_image);
             mTitle = (TextView)itemView.findViewById(R.id.card_view_title);
-            mDescription = (TextView)itemView.findViewById(R.id.card_view_description);
             mStarRating = (TextView)itemView.findViewById(R.id.card_view_star_rating);
-            mCommentCount = (TextView)itemView.findViewById(R.id.card_view_comment_count);
         }
     }
 
@@ -90,9 +84,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 .into(holder.mImageView);
 
         holder.mTitle.setText(mDataList.get(position).mTitle);
-        holder.mDescription.setText(mDataList.get(position).mDescription);
         holder.mStarRating.setText(mDataList.get(position).mStarRating + "");
-        holder.mCommentCount.setText(mDataList.get(position).mCommentCount + "");
     }
 
 

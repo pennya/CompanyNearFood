@@ -33,6 +33,11 @@
             android:name=".ui.signUp.SignUpActivity"
             android:label="@string/title_activity_sign_up"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ui.detail.RestaurantDetailActivity"
+            android:label="@string/title_activity_restaurant_detail"
+            android:theme="@style/AppTheme.NoActionBar"
+            ></activity>
     </application>
 
 </manifest>

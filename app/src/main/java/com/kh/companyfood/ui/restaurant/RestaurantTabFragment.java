@@ -1,6 +1,7 @@
 package com.kh.companyfood.ui.restaurant;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,8 @@ import com.kh.companyfood.adapter.restaurant.RecyclerViewData;
 import com.kh.companyfood.presenter.restaurant.RestaurantPresenter;
 import com.kh.companyfood.presenter.restaurant.RestaurantPresenterImpl;
 import com.kh.companyfood.adapter.restaurant.RecyclerViewAdapter;
+import com.kh.companyfood.ui.detail.RestaurantDetailActivity;
+import com.kh.companyfood.ui.main.MainActivity;
 
 import java.util.ArrayList;
 
@@ -83,5 +86,12 @@ public class RestaurantTabFragment extends Fragment implements RestaurantPresent
     @Override
     public void onRecyclerItemLongClick(int position) {
         restaurantPresenter.onRecyclerItemLongClick(position);
+    }
+
+    @Override
+    public void moveRestaurantDetailActivity(int position) {
+        Intent intent = new Intent(getActivity(), RestaurantDetailActivity.class);
+        intent.putExtra("position", position);
+        startActivity(intent);
     }
 }

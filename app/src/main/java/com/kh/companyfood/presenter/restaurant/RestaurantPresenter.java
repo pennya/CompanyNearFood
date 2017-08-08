@@ -26,6 +26,8 @@ public interface RestaurantPresenter {
 
         void onRecyclerItemLongClick(int position);
 
+        void moveRestaurantDetailActivity(int position);
+
     }
 }
 

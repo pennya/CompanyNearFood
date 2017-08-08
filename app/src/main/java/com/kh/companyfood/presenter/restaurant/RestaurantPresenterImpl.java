@@ -17,6 +17,8 @@ public class RestaurantPresenterImpl implements RestaurantPresenter, RestaurantC
 
     private RestaurantModel restaurantModel;
 
+    private ArrayList<RecyclerViewData> mList;
+
     public RestaurantPresenterImpl(RestaurantPresenter.View view) {
         mView = view;
         restaurantModel = new RestaurantModel(this);
@@ -29,16 +31,18 @@ public class RestaurantPresenterImpl implements RestaurantPresenter, RestaurantC
 
     @Override
     public void onRecyclerItemClick(int position) {
-        mView.ShowToast("StartActivity " + position);
+        RecyclerViewData vData = mList.get(position);
+        mView.moveRestaurantDetailActivity(vData.getmId());
     }
 
     @Override
     public void onRecyclerItemLongClick(int position) {
-        mView.ShowToast("Dialog Print " + position);
+        //mView.ShowToast("Dialog Print " + position);
     }
 
     @Override
     public void getNetworkResponse(ArrayList<RecyclerViewData> list, int status) {
+        mList = list;
         mView.addList(list);
     }
 }
