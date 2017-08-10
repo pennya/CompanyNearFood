@@ -79,11 +79,11 @@ public class LoginModel {
     }
 
     private void savePref(String id, String pw) {
-        SharedUtils.setStringValue(mContext, SettingTabFragment.LOGIN_ID, id);
-        SharedUtils.setStringValue(mContext, SettingTabFragment.LOGIN_PASSWORD, pw);
+        SharedUtils.setStringValue(mContext, Define.LOGIN_ID, id);
+        SharedUtils.setStringValue(mContext, Define.LOGIN_PASSWORD, pw);
 
-        SharedUtils.setBooleanValue(mContext, SettingTabFragment.IS_LOGIN, true);
-        SharedUtils.setStringValue(mContext, SettingTabFragment.CURRENT_LOGIN_ID, id);
+        SharedUtils.setBooleanValue(mContext, Define.IS_LOGIN, true);
+        SharedUtils.setStringValue(mContext, Define.CURRENT_LOGIN_ID, id);
     }
 
 

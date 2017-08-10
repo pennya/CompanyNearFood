@@ -3,15 +3,12 @@ package com.kh.companyfood.model.intro;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.kh.companyfood.define.Define;
 import com.kh.companyfood.network.NetworkManager;
-import com.kh.companyfood.network.UserService;
 import com.kh.companyfood.network.VersionService;
 import com.kh.companyfood.vo.APIError;
-import com.kh.companyfood.vo.User;
 import com.kh.companyfood.vo.Version;
 
 import java.io.IOException;
@@ -60,9 +57,9 @@ public class IntroModel {
                     Log.d(Define.LOG_TAG, "packageInfo.versionCode : "+packageInfo.versionCode);
 
                     if(version.getVersionCode() > packageInfo.versionCode){
-                        introCallback.getNetworkResponse(Define.UPDATE);
+                        introCallback.getNetworkResponse(Define.UPDATE, 200);
                     }else{
-                        introCallback.getNetworkResponse(Define.SUCCESS);
+                        introCallback.getNetworkResponse(Define.SUCCESS, 200);
                     }
 
                 } else {
@@ -77,7 +74,7 @@ public class IntroModel {
                     }
 
                     try {
-                        introCallback.getNetworkResponse(Define.RESPONSE_FAILED);
+                        introCallback.getNetworkResponse(Define.RESPONSE_FAILED, StatusCode);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -86,7 +83,7 @@ public class IntroModel {
 
             @Override
             public void onFailure(Call<Version> call, Throwable t) {
-                introCallback.getNetworkResponse(Define.NETWORK_FAILED);
+                introCallback.getNetworkResponse(-1, Define.NETWORK_FAILED);
             }
         });
     }

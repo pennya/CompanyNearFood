@@ -1,6 +1,5 @@
 package com.kh.companyfood.presenter.restaurant;
 
-import com.kh.companyfood.adapter.restaurant.RecyclerViewAdapter;
 import com.kh.companyfood.adapter.restaurant.RecyclerViewData;
 import com.kh.companyfood.model.restaurant.RestaurantCallback;
 import com.kh.companyfood.model.restaurant.RestaurantModel;
@@ -37,7 +36,7 @@ public class RestaurantPresenterImpl implements RestaurantPresenter, RestaurantC
 
     @Override
     public void onRecyclerItemLongClick(int position) {
-        //mView.ShowToast("Dialog Print " + position);
+
     }
 
     @Override

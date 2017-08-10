@@ -3,21 +3,9 @@ package com.kh.companyfood.model.setting;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.util.Log;
 
 import com.kh.companyfood.Share.SharedUtils;
-import com.kh.companyfood.model.Restaurant;
-import com.kh.companyfood.network.NetworkManager;
-import com.kh.companyfood.network.SettingService;
-import com.kh.companyfood.ui.setting.SettingTabFragment;
-import com.kh.companyfood.vo.Version;
-
-import java.io.IOException;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.kh.companyfood.define.Define;
 
 /**
  * Created by KIM on 2017-07-26.
@@ -48,18 +36,18 @@ public class SettingModel {
 
     public void requestCurrentLoginId() {
         boolean prefLogonCurrentState
-                = SharedUtils.getBooleanValue(mContext, SettingTabFragment.IS_LOGIN);
+                = SharedUtils.getBooleanValue(mContext, Define.IS_LOGIN);
 
         if(prefLogonCurrentState) {
             mSettingCallback.getCurrentLoginIdResponse(
-                    SharedUtils.getStringValue(mContext, SettingTabFragment.CURRENT_LOGIN_ID)
+                    SharedUtils.getStringValue(mContext, Define.CURRENT_LOGIN_ID)
             );
         }
     }
 
     public void requestLogout() {
-        SharedUtils.setBooleanValue(mContext, SettingTabFragment.IS_LOGIN, false);
-        SharedUtils.setStringValue(mContext, SettingTabFragment.CURRENT_LOGIN_ID, "");
+        SharedUtils.setBooleanValue(mContext, Define.IS_LOGIN, false);
+        SharedUtils.setStringValue(mContext, Define.CURRENT_LOGIN_ID, "");
         mSettingCallback.getLogoutResponse("");
     }
 }

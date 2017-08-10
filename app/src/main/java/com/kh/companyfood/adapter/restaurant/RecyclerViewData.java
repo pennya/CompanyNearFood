@@ -1,8 +1,5 @@
 package com.kh.companyfood.adapter.restaurant;
 
-import android.widget.ImageView;
-import android.widget.TextView;
-
 /**
  * Created by KIM on 2017-06-22.
  */
@@ -15,19 +12,13 @@ public class RecyclerViewData {
 
     public String mTitle;
 
-    public String mDescription;
+    public float mStarRating;
 
-    public int mStarRating;
-
-    public int mCommentCount;
-
-    public RecyclerViewData(int mId, String mImage, String mTitle, String mDescription, int mStarRating, int mCommentCount) {
+    public RecyclerViewData(int mId, String mImage, String mTitle, float mStarRating) {
         this.mId = mId;
         this.mImage = mImage;
         this.mTitle = mTitle;
-        this.mDescription = mDescription;
         this.mStarRating = mStarRating;
-        this.mCommentCount = mCommentCount;
     }
 
     public int getmId() {
@@ -54,27 +45,11 @@ public class RecyclerViewData {
         this.mTitle = mTitle;
     }
 
-    public String getmDescription() {
-        return mDescription;
-    }
-
-    public void setmDescription(String mDescription) {
-        this.mDescription = mDescription;
-    }
-
-    public int getmStarRating() {
+    public float getmStarRating() {
         return mStarRating;
     }
 
-    public void setmStarRating(int mStarRating) {
+    public void setmStarRating(float mStarRating) {
         this.mStarRating = mStarRating;
-    }
-
-    public int getmCommentCount() {
-        return mCommentCount;
-    }
-
-    public void setmCommentCount(int mCommentCount) {
-        this.mCommentCount = mCommentCount;
     }
 }

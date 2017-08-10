@@ -32,9 +32,9 @@ public class IntroPresenterImpl implements IntroPresenter, IntroCallback {
     }
 
     @Override
-    public void getNetworkResponse(int status) {
-        if(status == Define.SUCCESS){
-            boolean isLogin = SharedUtils.getBooleanValue(mContext, SettingTabFragment.IS_LOGIN);
+    public void getNetworkResponse(int versionStatus, int networkStatus) {
+        if(versionStatus == Define.SUCCESS && networkStatus == 200){
+            boolean isLogin = SharedUtils.getBooleanValue(mContext, Define.IS_LOGIN);
             if(isLogin)
                 view.moveMainActivity();
             else

@@ -60,7 +60,8 @@ public class IntroActivity extends Activity implements IntroPresenter.View{
 
     @Override
     public void showToast() {
-        Toast.makeText(this, "intro showToast", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "need to update", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     public class DelayRunnable implements Runnable {
