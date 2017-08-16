@@ -9,4 +9,17 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- Settings -->
+    <string name="pref_category_title">About</string>
+    <string name="pref_notification_title">Notifications</string>
+    <string name="pref_version_title">Version</string>
+    <string name="pref_logon_title">Logout</string>
+    <string name="pref_autologin">AutoLogin</string>
+
+    <!-- Intro -->
+    <string name="intro_title">What to eat today?</string>
+    <string name="title_activity_restaurant_detail">RestaurantDetailActivity</string>
+
 </resources>

@@ -1,6 +1,6 @@
 package com.kh.companyfood.network;
 
-import com.kh.companyfood.model.Restaurant;
+import com.kh.companyfood.vo.Restaurant;
 
 import java.util.List;
 

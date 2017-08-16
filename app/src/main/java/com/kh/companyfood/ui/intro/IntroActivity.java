@@ -8,11 +8,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.kh.companyfood.R;
+import com.kh.companyfood.Share.SharedUtils;
 import com.kh.companyfood.define.Define;
 import com.kh.companyfood.presenter.intro.IntroPresenter;
 import com.kh.companyfood.presenter.intro.IntroPresenterImpl;
 import com.kh.companyfood.ui.login.LoginActivity;
 import com.kh.companyfood.ui.main.MainActivity;
+import com.kh.companyfood.ui.setting.SettingTabFragment;
 
 public class IntroActivity extends Activity implements IntroPresenter.View{
 
@@ -44,7 +46,6 @@ public class IntroActivity extends Activity implements IntroPresenter.View{
 
     @Override
     public void moveMainActivity() {
-        Log.d(Define.LOG_TAG, "intro moveMainActivity");
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         finish();
@@ -52,7 +53,6 @@ public class IntroActivity extends Activity implements IntroPresenter.View{
 
     @Override
     public void moveLoginActivity() {
-        Log.d(Define.LOG_TAG, "intro moveLoginActivity");
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
         finish();
@@ -60,15 +60,14 @@ public class IntroActivity extends Activity implements IntroPresenter.View{
 
     @Override
     public void showToast() {
-        Log.d(Define.LOG_TAG, "intro showToast");
-        Toast.makeText(this, "intro showToast", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "need to update", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     public class DelayRunnable implements Runnable {
 
         @Override
         public void run() {
-            Log.d(Define.LOG_TAG, "intro DelayRunnable");
             introPresenterImpl.onVersionCheck();
         }
     }

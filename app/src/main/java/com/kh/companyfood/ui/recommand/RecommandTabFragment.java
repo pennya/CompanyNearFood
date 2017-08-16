@@ -1,6 +1,8 @@
 package com.kh.companyfood.ui.recommand;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,8 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kh.companyfood.R;
+import com.kh.companyfood.Share.SharedUtils;
+import com.kh.companyfood.define.Define;
 import com.kh.companyfood.presenter.recommand.RecommandPresenter;
 import com.kh.companyfood.presenter.recommand.RecommandPresenterImpl;
+import com.kh.companyfood.ui.setting.SettingTabFragment;
 
 public class RecommandTabFragment extends Fragment implements RecommandPresenter.View, View.OnClickListener{
 
@@ -23,6 +28,8 @@ public class RecommandTabFragment extends Fragment implements RecommandPresenter
     private TextView mTextView;
 
     private Button mButton;
+
+    private Button mButton2;
 
     public RecommandTabFragment() {
 
@@ -38,7 +45,9 @@ public class RecommandTabFragment extends Fragment implements RecommandPresenter
         View root = inflater.inflate(R.layout.fragment_recommand, container, false);
         mTextView = (TextView)root.findViewById(R.id.text_sample);
         mButton = (Button)root.findViewById(R.id.button_sample);
+        mButton2 = (Button)root.findViewById(R.id.button_sample2);
         mButton.setOnClickListener(this);
+        mButton2.setOnClickListener(this);
         mPresenter = new RecommandPresenterImpl(this);
 
         return root;
@@ -60,6 +69,17 @@ public class RecommandTabFragment extends Fragment implements RecommandPresenter
                 int[] distance = new int[] {1,2};
 
                 mPresenter.buttonClickAction(category, weather, distance);
+                break;
+
+            case R.id.button_sample2:
+                SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getContext());
+                boolean notificationKey = SP.getBoolean(Define.KEY_PREF_NOTIFICATION, false);
+
+                if( notificationKey )
+                    Toast.makeText(getActivity(), "true", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(getActivity(), "false", Toast.LENGTH_LONG).show();
+
                 break;
         }
     }

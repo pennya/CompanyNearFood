@@ -19,7 +19,14 @@ public interface RestaurantPresenter {
     interface View {
 
         void ShowToast(String msg);
+
         void addList(ArrayList<RecyclerViewData> list);
+
+        void onRecyclerItemClick(int position);
+
+        void onRecyclerItemLongClick(int position);
+
+        void moveRestaurantDetailActivity(int position);
 
     }
 }

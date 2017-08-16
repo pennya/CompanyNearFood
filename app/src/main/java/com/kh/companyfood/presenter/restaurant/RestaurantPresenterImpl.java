@@ -1,6 +1,5 @@
 package com.kh.companyfood.presenter.restaurant;
 
-import com.kh.companyfood.adapter.restaurant.RecyclerViewAdapter;
 import com.kh.companyfood.adapter.restaurant.RecyclerViewData;
 import com.kh.companyfood.model.restaurant.RestaurantCallback;
 import com.kh.companyfood.model.restaurant.RestaurantModel;
@@ -15,37 +14,34 @@ public class RestaurantPresenterImpl implements RestaurantPresenter, RestaurantC
 
     private final RestaurantPresenter.View mView;
 
-    private ArrayList<RecyclerViewData> mDataList;
-
-    private RecyclerViewAdapter mAdapter;
     private RestaurantModel restaurantModel;
+
+    private ArrayList<RecyclerViewData> mList;
 
     public RestaurantPresenterImpl(RestaurantPresenter.View view) {
         mView = view;
-        //mAdapter = adapter;
-        //mDataList = new ArrayList<>();
-
         restaurantModel = new RestaurantModel(this);
     }
 
     @Override
     public void loadItems() {
-
         restaurantModel.requestRestaurantList();
     }
 
     @Override
     public void onRecyclerItemClick(int position) {
-        mView.ShowToast("StartActivity " + position);
+        RecyclerViewData vData = mList.get(position);
+        mView.moveRestaurantDetailActivity(vData.getmId());
     }
 
     @Override
     public void onRecyclerItemLongClick(int position) {
-        mView.ShowToast("Dialog Print " + position);
+
     }
 
     @Override
     public void getNetworkResponse(ArrayList<RecyclerViewData> list, int status) {
+        mList = list;
         mView.addList(list);
     }
 }

@@ -25,34 +25,33 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<RecyclerViewData> mDataList = new ArrayList<>();
 
     private Context mContext;
-    private RestaurantPresenter restaurantPresenter;
-    /**
-     * 각 데이터 항목을 포함한 뷰 참조를 제공합니다.
-     * 뷰 홀더에서 데이터 항목을 포함한 뷰에 접근할 권한을 제공합니다.
-     */
-    public class ViewHolder extends RecyclerView.ViewHolder{
+
+    private RestaurantPresenter.View mView;
+
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView mImageView;
 
-        public TextView mTextView;
+        public TextView mTitle;
+
+        public TextView mStarRating;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mImageView = (ImageView)itemView.findViewById(R.id.image_sample);
-            mTextView = (TextView)itemView.findViewById(R.id.text_sample);
+            mImageView = (ImageView)itemView.findViewById(R.id.card_view_image);
+            mTitle = (TextView)itemView.findViewById(R.id.card_view_title);
+            mStarRating = (TextView)itemView.findViewById(R.id.card_view_star_rating);
         }
     }
 
-    public RecyclerViewAdapter(Context context, RestaurantPresenter restaurantPresenter) {
+    public RecyclerViewAdapter(Context context, RestaurantPresenter.View view) {
         mContext = context;
-        this.restaurantPresenter = restaurantPresenter;
+        mView = view;
     }
 
-    /**
-     * 레이아웃 매니저에 의해 호출되며 새로운 뷰를 생성합니다.
-     */
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // 새로운 뷰 생성
+
         View view = LayoutInflater.from(parent.getContext())
                                 .inflate(R.layout.content_cardview, parent, false);
 
@@ -61,27 +60,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return viewHolder;
     }
 
-    /**
-     * 레이아웃 메니저에 의해 호출되며 뷰의 내용을 교체합니다.
-     */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        // 아이템 클릭하면 뷰에게 보냄
         final int ItemPosition = position;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                restaurantPresenter.onRecyclerItemClick(ItemPosition);
+                mView.onRecyclerItemClick(ItemPosition);
             }
         });
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                restaurantPresenter.onRecyclerItemLongClick(ItemPosition);
-
-                return false;
+                mView.onRecyclerItemLongClick(ItemPosition);
+                return true;
             }
         });
 
@@ -89,12 +83,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 .load(mDataList.get(position).mImage)
                 .into(holder.mImageView);
 
-        holder.mTextView.setText(mDataList.get(position).mText);
+        holder.mTitle.setText(mDataList.get(position).mTitle);
+        holder.mStarRating.setText(mDataList.get(position).mStarRating + "");
     }
 
-    /**
-     * 뷰의 사이즈를 리턴
-     */
+
     @Override
     public int getItemCount() {
         return mDataList.size();

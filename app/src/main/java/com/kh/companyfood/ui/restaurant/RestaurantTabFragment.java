@@ -1,6 +1,7 @@
 package com.kh.companyfood.ui.restaurant;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,8 @@ import com.kh.companyfood.adapter.restaurant.RecyclerViewData;
 import com.kh.companyfood.presenter.restaurant.RestaurantPresenter;
 import com.kh.companyfood.presenter.restaurant.RestaurantPresenterImpl;
 import com.kh.companyfood.adapter.restaurant.RecyclerViewAdapter;
+import com.kh.companyfood.ui.detail.RestaurantDetailActivity;
+import com.kh.companyfood.ui.main.MainActivity;
 
 import java.util.ArrayList;
 
@@ -26,8 +29,6 @@ import java.util.ArrayList;
 public class RestaurantTabFragment extends Fragment implements RestaurantPresenter.View{
 
     private static final String TAG = "KJH";
-
-    private RestaurantPresenterImpl mPresenter;
 
     private RecyclerView mRecyclerView;
 
@@ -59,7 +60,7 @@ public class RestaurantTabFragment extends Fragment implements RestaurantPresent
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         restaurantPresenter = new RestaurantPresenterImpl(this);
-        mAdapter = new RecyclerViewAdapter(getActivity(), restaurantPresenter);
+        mAdapter = new RecyclerViewAdapter(getActivity(), this);
         mRecyclerView.setAdapter(mAdapter);
         restaurantPresenter.loadItems();
 
@@ -75,5 +76,22 @@ public class RestaurantTabFragment extends Fragment implements RestaurantPresent
     public void addList(ArrayList<RecyclerViewData> list) {
         mAdapter.setItems(list);
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRecyclerItemClick(int position) {
+        restaurantPresenter.onRecyclerItemClick(position);
+    }
+
+    @Override
+    public void onRecyclerItemLongClick(int position) {
+        restaurantPresenter.onRecyclerItemLongClick(position);
+    }
+
+    @Override
+    public void moveRestaurantDetailActivity(int position) {
+        Intent intent = new Intent(getActivity(), RestaurantDetailActivity.class);
+        intent.putExtra("position", position);
+        startActivity(intent);
     }
 }

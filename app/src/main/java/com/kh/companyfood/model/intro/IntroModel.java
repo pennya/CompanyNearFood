@@ -3,15 +3,12 @@ package com.kh.companyfood.model.intro;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.kh.companyfood.define.Define;
 import com.kh.companyfood.network.NetworkManager;
-import com.kh.companyfood.network.UserService;
 import com.kh.companyfood.network.VersionService;
 import com.kh.companyfood.vo.APIError;
-import com.kh.companyfood.vo.User;
 import com.kh.companyfood.vo.Version;
 
 import java.io.IOException;
@@ -44,9 +41,6 @@ public class IntroModel {
         LoginCall.enqueue(new Callback<Version>() {
             @Override
             public void onResponse(Call<Version> call, Response<Version> response) {
-                Log.d(Define.LOG_TAG, "requestLogin onResponse");
-                Log.d(Define.LOG_TAG, "response.code() : "+response.code());
-                // 응답 성공
                 if(response.isSuccessful() && response.code() == 200) {
 
                     Version version = response.body();
@@ -63,13 +57,12 @@ public class IntroModel {
                     Log.d(Define.LOG_TAG, "packageInfo.versionCode : "+packageInfo.versionCode);
 
                     if(version.getVersionCode() > packageInfo.versionCode){
-                        introCallback.getNetworkResponse(Define.UPDATE);
+                        introCallback.getNetworkResponse(Define.UPDATE, 200);
                     }else{
-                        introCallback.getNetworkResponse(Define.SUCCESS);
+                        introCallback.getNetworkResponse(Define.SUCCESS, 200);
                     }
 
                 } else {
-                    // 응답 실패
                     int StatusCode = response.code();
 
                     Converter<ResponseBody, APIError> responseBodyObjectConverter = NetworkManager.retrofit.responseBodyConverter(APIError.class, new Annotation[0]);
@@ -81,8 +74,7 @@ public class IntroModel {
                     }
 
                     try {
-                        //loginCallback.getNetworkResponse("[Login Fail]\n" + "StatusCode : " + StatusCode + "\n" + "ErrorMsg : " + response.errorBody().string(),Define.RESPONSE_FAILED);
-                        introCallback.getNetworkResponse(Define.RESPONSE_FAILED);
+                        introCallback.getNetworkResponse(Define.RESPONSE_FAILED, StatusCode);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -91,12 +83,8 @@ public class IntroModel {
 
             @Override
             public void onFailure(Call<Version> call, Throwable t) {
-                Log.d(Define.LOG_TAG, "requestLogin onFailure");
-                //loginCallback.getNetworkResponse(t.getMessage(), Define.NETWORK_FAILED);
-                introCallback.getNetworkResponse(Define.NETWORK_FAILED);
+                introCallback.getNetworkResponse(-1, Define.NETWORK_FAILED);
             }
         });
-
     }
-
 }

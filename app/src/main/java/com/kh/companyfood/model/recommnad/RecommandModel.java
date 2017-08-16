@@ -1,11 +1,9 @@
 package com.kh.companyfood.model.recommnad;
 
-import com.kh.companyfood.define.Define;
-import com.kh.companyfood.model.Restaurant;
+import com.kh.companyfood.vo.Restaurant;
 import com.kh.companyfood.network.NetworkManager;
 import com.kh.companyfood.network.RecommandService;
 
-import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -29,7 +27,6 @@ public class RecommandModel {
         postRecommandCall.enqueue(new Callback<List<Restaurant>>() {
             @Override
             public void onResponse(Call<List<Restaurant>> call, Response<List<Restaurant>> response) {
-                // 응답 성공
                 if(response.isSuccessful()) {
                     List<Restaurant> restaurantList = response.body();
 
@@ -46,7 +43,6 @@ public class RecommandModel {
 
                     mRecommandCallback.getNetworkResponse(restaurant_txt, 200);
                 } else {
-                    // 응답 실패
                     int StatusCode = response.code();
                     mRecommandCallback.getNetworkResponse("Failed", StatusCode);
                 }

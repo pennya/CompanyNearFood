@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/pref_category_title">
+        <PreferenceScreen
+            android:key="pref_version"
+            android:title="@string/pref_version_title"
+            />
+
+        <SwitchPreferenceCompat
+            android:key="pref_notification"
+            android:title="@string/pref_notification_title"
+            android:defaultValue="false"
+            />
+
+        <PreferenceScreen
+            android:key="pref_logon"
+            android:title="@string/pref_logon_title"
+            />
+    </PreferenceCategory>
 
 </PreferenceScreen>
