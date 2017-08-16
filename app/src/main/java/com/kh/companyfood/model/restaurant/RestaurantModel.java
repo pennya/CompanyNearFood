@@ -7,7 +7,7 @@ import com.kh.companyfood.define.Define;
 import com.kh.companyfood.network.NetworkManager;
 import com.kh.companyfood.network.RestaurantService;
 import com.kh.companyfood.vo.Image;
-import com.kh.companyfood.vo.RestaurantDetail;
+import com.kh.companyfood.vo.RestaurantList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +32,14 @@ public class RestaurantModel {
 
     public void requestRestaurantList(){
         RestaurantService restaurantService = NetworkManager.getIntance().getRetrofit(RestaurantService.class);
-        Call<List<RestaurantDetail>> restaurantListCall = restaurantService.getRestaurants();
-        restaurantListCall.enqueue(new Callback<List<RestaurantDetail>>() {
+        Call<List<RestaurantList>> restaurantListCall = restaurantService.getRestaurants();
+        restaurantListCall.enqueue(new Callback<List<RestaurantList>>() {
             @Override
-            public void onResponse(Call<List<RestaurantDetail>> call, Response<List<RestaurantDetail>> response) {
+            public void onResponse(Call<List<RestaurantList>> call, Response<List<RestaurantList>> response) {
                 if(response.isSuccessful() && response.code() == 200) {
-                    List<RestaurantDetail> restaurantLists = response.body();
+                    List<RestaurantList> restaurantLists = response.body();
                     for(int i = 0; i < restaurantLists.size(); i++) {
-                        RestaurantDetail resturantDetail = restaurantLists.get(i);
+                        RestaurantList resturantDetail = restaurantLists.get(i);
                         Image[] image = resturantDetail.getRestaurantimage_set();
                         float rating = Float.parseFloat(String.format("%.1f", resturantDetail.getRatingAverage()));
 
@@ -56,7 +56,7 @@ public class RestaurantModel {
             }
 
             @Override
-            public void onFailure(Call<List<RestaurantDetail>> call, Throwable t) {
+            public void onFailure(Call<List<RestaurantList>> call, Throwable t) {
                 Log.d(Define.LOG_TAG, "onFailure : " + t.getMessage());
             }
         });

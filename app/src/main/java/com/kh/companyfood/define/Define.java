@@ -19,6 +19,7 @@ public class Define {
     public static final int SUCCESS = 300;
     public static final int UPDATE = 301;
 
+    public static final String ID_PK = "id_pk";
     public static final String LOGIN_ID = "login_id";
     public static final String LOGIN_PASSWORD = "login_password";
     public static final String CURRENT_LOGIN_ID = "current_login_id";

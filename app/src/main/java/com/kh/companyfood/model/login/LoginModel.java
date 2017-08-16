@@ -47,7 +47,7 @@ public class LoginModel {
                 if(response.isSuccessful()) {
                     // 로그인 성공
                     User user = response.body();
-                    savePref(user.getId(), user.getPassword());
+                    savePref(user.getPk(), user.getId(), user.getPassword());
                     mLoginCallback.getNetworkResponse(user, Define.LOGIN_SUCCESS);
                 } else {
                     // 응답 실패
@@ -78,7 +78,9 @@ public class LoginModel {
         });
     }
 
-    private void savePref(String id, String pw) {
+    private void savePref(int pk, String id, String pw) {
+
+        SharedUtils.setIntValue(mContext, Define.ID_PK, pk);
         SharedUtils.setStringValue(mContext, Define.LOGIN_ID, id);
         SharedUtils.setStringValue(mContext, Define.LOGIN_PASSWORD, pw);
 

@@ -26,7 +26,6 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Resta
 
         Intent intent = getIntent();
         int id = intent.getIntExtra("position", -1);
-        Toast.makeText(this, "id : " + id, Toast.LENGTH_SHORT).show();
 
         mRestaurantDetailPresnter = new RestaurantDetailPresnterImpl(this, this);
         mRestaurantDetailPresnter.loadDetails(id);
@@ -34,6 +33,6 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Resta
 
     @Override
     public void setRestaurantDetail(RestaurantDetail detail) {
-
+        // 레이아웃 설정
     }
 }

@@ -8,5 +8,5 @@ import com.kh.companyfood.vo.RestaurantDetail;
 
 public interface RestaurantDetailCallback {
 
-    void getNetworkResponse(RestaurantDetail detail);
+    void getNetworkResponse(RestaurantDetail detail, int status);
 }

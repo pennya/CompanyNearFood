@@ -27,7 +27,7 @@ public class RestaurantDetailPresnterImpl implements RestaurantDetailPresnter, R
     }
 
     @Override
-    public void getNetworkResponse(RestaurantDetail detail) {
+    public void getNetworkResponse(RestaurantDetail detail, int status) {
         mView.setRestaurantDetail(detail);
     }
 }
