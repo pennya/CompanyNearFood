@@ -7,7 +7,7 @@ package com.kh.companyfood.vo;
 public class Map {
     public int id;
     public int restaurant;
-    public String clatitude;
+    public String latitude;
     public String longitude;
     public float realDistance;
 
@@ -19,8 +19,8 @@ public class Map {
         return restaurant;
     }
 
-    public String getClatitude() {
-        return clatitude;
+    public String getLatitude() {
+        return latitude;
     }
 
     public String getLongitude() {

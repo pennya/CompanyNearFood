@@ -7,6 +7,7 @@ package com.kh.companyfood.vo;
 public class RestaurantList {
     public int id;
     public String name;
+    public String address;
     public Category category;
     public Weather weather;
     public Distance distance;
@@ -16,6 +17,10 @@ public class RestaurantList {
 
     public int getId() {
         return id;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public String getName() {

@@ -25,11 +25,6 @@ public class NetworkManager {
     public static Retrofit retrofit = builder.build();
 
     public <T> T getRetrofit(Class<T> service) {
-        /*Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Define.END_POINT)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();*/
-
         return retrofit.create(service);
     }
 

@@ -17,28 +17,36 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/card_view_image"
+            <RelativeLayout
+                android:id="@+id/relative_layout_image_view"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_alignParentTop="true"
-                android:scaleType="centerCrop"
-                />
+                android:layout_height="match_parent"
+                >
 
-            <TextView
-                android:id="@+id/card_view_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_margin="5dp"
-                android:textColor="#FFF"
-                android:textStyle="bold"
-                android:textSize="30dp"
-                />
+                <ImageView
+                    android:id="@+id/card_view_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="centerCrop"
+                    />
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/card_view_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="5dp"
+                    android:textColor="#FFF"
+                    android:textStyle="bold"
+                    android:textSize="30dp"
+                    />
 
                 <TextView
                     android:id="@+id/card_view_star"

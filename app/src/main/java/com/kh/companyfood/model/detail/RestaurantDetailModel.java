@@ -31,8 +31,8 @@ public class RestaurantDetailModel {
     public void RequestRestaurantDetail(int id) {
         RestaurantService restaurantService = NetworkManager.getIntance().getRetrofit(RestaurantService.class);
 
-        int pk = SharedUtils.getIntValue(mContext, Define.ID_PK);
-        Call<RestaurantDetail> callRestaurantDetail = restaurantService.getDetailRestaurant(pk, id);
+        int userId = SharedUtils.getIntValue(mContext, Define.ID_PK);
+        Call<RestaurantDetail> callRestaurantDetail = restaurantService.getDetailRestaurant(id, userId);
         callRestaurantDetail.enqueue(new Callback<RestaurantDetail>() {
             @Override
             public void onResponse(Call<RestaurantDetail> call, Response<RestaurantDetail> response) {
