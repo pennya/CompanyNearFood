@@ -3,6 +3,8 @@ package com.kh.companyfood.ui.detail;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -11,6 +13,7 @@ import com.kh.companyfood.R;
 import com.kh.companyfood.presenter.detail.RestaurantDetailPresnter;
 import com.kh.companyfood.presenter.detail.RestaurantDetailPresnterImpl;
 import com.kh.companyfood.vo.RestaurantDetail;
+import com.nhn.android.maps.NMapView;
 
 /**
  * Created by KIM on 2017-08-08.
@@ -51,6 +54,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Resta
         viewPager.setAdapter(restaurantDetailImageAdapter);
 
         setLayout(mRestaurantDetail);
+        setNaverMapInit();
     }
 
     private void initLayout() {
@@ -60,6 +64,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Resta
         mDescription = (TextView) findViewById(R.id.text_view_description);
         mStar = (TextView) findViewById(R.id.text_view_star);
         mComment = (TextView) findViewById(R.id.text_view_comment);
+
     }
 
     private void setLayout(RestaurantDetail restaurantDetail) {
@@ -70,5 +75,17 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Resta
         mStar.setText(String.format("%.1f", restaurantDetail.getRestaurant()[0].getRatingAverage()));
         mComment.setText("comment count : " + restaurantDetail.getCommentCount()
                 + ", latitue/longitude : " +  restaurantDetail.getMap()[0].getLatitude() + "/" + restaurantDetail.getMap()[0].getLongitude());
+    }
+
+    private void setNaverMapInit() {
+        Bundle mapBundle = new Bundle();
+        mapBundle.putSerializable("MapData", mRestaurantDetail.getMap());
+
+        NaverMapFragment naverMapFragment = new NaverMapFragment();
+        naverMapFragment.setArguments(mapBundle);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.add(R.id.fragmentHere, naverMapFragment);
+        fragmentTransaction.commit();
     }
 }

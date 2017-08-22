@@ -46,4 +46,6 @@ dependencies {
 
     //v7 Preference 지원 라이브러리 (환경설정 라이브러리)
     compile 'com.android.support:preference-v7:25.3.1'
+
+    compile 'com.naver.maps.open:naver-map-api:2.1.2@aar'
 }

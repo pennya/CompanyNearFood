@@ -27,4 +27,6 @@ public class Define {
     public static final String KEY_PREF_LOGON = "pref_logon";
     public static final String KEY_PREF_VERSION = "pref_version";
     public static final String KEY_PREF_NOTIFICATION = "pref_notification";
+
+    public static final String CLIENT_ID = "CJ1NtyVJE3p8hYVe4zwC";
 }
