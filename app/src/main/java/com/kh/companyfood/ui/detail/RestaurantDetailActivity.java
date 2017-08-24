@@ -13,7 +13,8 @@ import com.kh.companyfood.R;
 import com.kh.companyfood.presenter.detail.RestaurantDetailPresnter;
 import com.kh.companyfood.presenter.detail.RestaurantDetailPresnterImpl;
 import com.kh.companyfood.vo.RestaurantDetail;
-import com.nhn.android.maps.NMapView;
+
+import java.util.ArrayList;
 
 /**
  * Created by KIM on 2017-08-08.
@@ -29,6 +30,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Resta
     private TextView mDescription;
     private TextView mStar;
     private TextView mComment;
+    private ArrayList<RestaurantDetail> restaurantDetailList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Resta
     public void setRestaurantDetail(RestaurantDetail detail) {
         // 레이아웃 설정
         mRestaurantDetail = detail;
+        restaurantDetailList.add(mRestaurantDetail);
         ViewPager viewPager = (ViewPager)findViewById(R.id.view_pager_images);
         RestaurantDetailImageAdapter restaurantDetailImageAdapter
                 = new RestaurantDetailImageAdapter(this, mRestaurantDetail.getRestaurant()[0].getRestaurantimage_set() );
@@ -79,7 +82,7 @@ public class RestaurantDetailActivity extends AppCompatActivity implements Resta
 
     private void setNaverMapInit() {
         Bundle mapBundle = new Bundle();
-        mapBundle.putSerializable("MapData", mRestaurantDetail.getMap());
+        mapBundle.putSerializable("MapData", restaurantDetailList);
 
         NaverMapFragment naverMapFragment = new NaverMapFragment();
         naverMapFragment.setArguments(mapBundle);
