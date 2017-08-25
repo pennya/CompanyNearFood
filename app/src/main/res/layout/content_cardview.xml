@@ -17,20 +17,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/card_view_image"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_alignParentTop="true"
+                android:scaleType="centerCrop"
+                />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:alpha=".75">
-
-                <ImageView
-                    android:id="@+id/card_view_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_alignParentTop="true"
-                    android:scaleType="centerCrop"
-                    />
-
-            </RelativeLayout>
+                android:background="#000"
+                android:alpha="0.6"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -42,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_margin="5dp"
-                    android:textColor="#000"
+                    android:textColor="#FFF"
                     android:textStyle="bold"
                     android:textSize="30dp"
                     />
@@ -51,7 +50,7 @@
                     android:id="@+id/card_view_star"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_star_black_18dp"
+                    android:drawableLeft="@drawable/ic_star_white_18dp"
                     android:layout_toLeftOf="@+id/card_view_star_rating"
                     android:layout_marginTop="5dp"/>
 
@@ -64,7 +63,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="5dp"
                     android:textStyle="bold"
-                    android:textColor="#000"
+                    android:textColor="#FFF"
                     android:textSize="13dp"
                     />
 
