@@ -34,6 +34,9 @@ public class NaverMapFragment extends Fragment {
     private NMapViewerResourceProvider mMapViewerResourceProvider;
     private NMapOverlayManager mOverlayManager;
 
+
+    
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
